@@ -2,44 +2,54 @@
 #include <stdlib.h>
 
 typedef struct {
-    int dni;
-    char apenom[21];
-    int pagado;
-} TInscriptos;
+    char suc[16];
+    int cod;
+    int cant;
+} TVenta;
 
 typedef struct {
-    char apenom[21];
-    int dni;
-    int tel;
-} TInteresados;
+    int cod;
+    char desc[21];
+    float precio;
+    int stock;
+    int pPed;
+    int cPed;
+} TProd;
+
+typedef struct {
+    int cod;
+    int cant;
+} TPed;
 
 void mostrarArchivo();
 void mostrarArchivo2();
+void mostrarArchivo3();
 
 int main() {
     mostrarArchivo();
     mostrarArchivo2();
+    mostrarArchivo3();
     return 0;
 }
 
 void mostrarArchivo() {
     FILE *fp;
-    TInscriptos ins;
+    TVenta reg;
 
-    fp = fopen("Archivos/INSCRIPTOS.DAT", "rb");
+    fp = fopen("Archivos/VENTAS2.dat", "rb");
 
     if (fp == NULL) {
-        printf("Error al leer STOCK.DAT");
+        printf("Error al leer VENTAS2.dat");
         exit(1);
     }
 
-    fread(&ins, sizeof(TInscriptos), 1, fp);
+    fread(&reg, sizeof(TVenta), 1, fp);
 
     printf("Contenido del archivo:\n");
 
     while (!feof(fp)) {
-        printf("%d\t%s\t%d\n", ins.dni, ins.apenom, ins.pagado);
-        fread(&ins, sizeof(TInscriptos), 1, fp);
+        printf("%s\t%d\t%d\n", reg.suc, reg.cod, reg.cant);
+        fread(&reg, sizeof(TVenta), 1, fp);
     }
     
     fclose(fp);
@@ -47,22 +57,45 @@ void mostrarArchivo() {
 
 void mostrarArchivo2() {
     FILE *fp;
-    TInteresados intersado;
+    TProd reg;
 
-    fp = fopen("Archivos/INTERESADOS.DAT", "rb");
+    fp = fopen("Archivos/PRODUCTOS2.dat", "rb");
 
     if (fp == NULL) {
-        printf("Error al leer INTERESADOS.DAT");
+        printf("Error al leer PRODUCTOS2.dat");
         exit(1);
     }
 
-    fread(&intersado, sizeof(TInteresados), 1, fp);
+    fread(&reg, sizeof(TProd), 1, fp);
 
     printf("Contenido del archivo:\n");
 
     while (!feof(fp)) {
-        printf("%d\t%s\t%d\n", intersado.dni, intersado.apenom, intersado.tel);
-        fread(&intersado, sizeof(TInteresados), 1, fp);
+        printf("%d\t%s\t%.2f\t%d\t%d\t%d\n", reg.cod, reg.desc, reg.precio, reg.stock, reg.pPed, reg.cPed);
+        fread(&reg, sizeof(TProd), 1, fp);
+    }
+    
+    fclose(fp);
+}
+
+void mostrarArchivo3() {
+    FILE *fp;
+    TPed reg;
+
+    fp = fopen("Archivos/PEDIDOS.dat", "rb");
+
+    if (fp == NULL) {
+        printf("Error al leer PEDIDOS.dat");
+        exit(1);
+    }
+
+    fread(&reg, sizeof(TPed), 1, fp);
+
+    printf("Contenido del archivo:\n");
+
+    while (!feof(fp)) {
+        printf("%d\t%d\n", reg.cod, reg.cant);
+        fread(&reg, sizeof(TPed), 1, fp);
     }
     
     fclose(fp);
