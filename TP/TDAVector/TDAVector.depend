@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1744910291 source:e:\programacion\c\materias-programacion\tp\tdavector\vector.c
+	<stdbool.h>
+	"Vector.h"
+
+1744906627 e:\programacion\c\materias-programacion\tp\tdavector\vector.h
+	<stddef.h>
+	<stdbool.h>
+
