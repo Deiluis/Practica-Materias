@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1745506160 source:c:\users\estudiante\desktop\facultad\materias-programacion\tp\tdapalabra\secuenciapalabras.c
+	"SecuenciaPalabras.h"
+
+1745505769 c:\users\estudiante\desktop\facultad\materias-programacion\tp\tdapalabra\secuenciapalabras.h
+	<stdio.h>
+	<stdbool.h>
+	"Palabra.h"
+
+1745505455 c:\users\estudiante\desktop\facultad\materias-programacion\tp\tdapalabra\palabra.h
+	<stdbool.h>
+
+1745505653 source:c:\users\estudiante\desktop\facultad\materias-programacion\tp\tdapalabra\palabra.c
+	"Palabra.h"
+	<stdio.h>
+	<ctype.h>
+
