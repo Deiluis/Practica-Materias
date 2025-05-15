@@ -2,11 +2,10 @@
 1746411660 source:e:\programacion\c\materias-programacion\tp\string\main.c
 	"String.h"
 
-1746462954 e:\programacion\c\materias-programacion\tp\string\string.h
+1746465818 e:\programacion\c\materias-programacion\tp\string\string.h
 	<stddef.h>
 	<stdbool.h>
 
-1746463339 source:e:\programacion\c\materias-programacion\tp\string\string.c
+1746719458 source:e:\programacion\c\materias-programacion\tp\string\string.c
 	"String.h"
-	<stdio.h>
 

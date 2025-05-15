@@ -1,15 +1,28 @@
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "Vector.h"
 
 bool vectorCrear (Vector* v) {
     v -> tam = 0;
+    v -> vec = malloc(CAP_INI * sizeof(int));
+
+    if (v -> vec == NULL) {
+        v -> cap = 0;
+        return false;
+    }
+
+    v -> cap = CAP_INI;
+
     return true;
 }
 
 int vectorOrdInsertar(Vector* v, int elem) {
 
-    if (v -> tam == TAM)
-        return LLENO;
+    if (v -> tam == v -> cap) {
+        if (!redimensionarVector(v, AUMENTAR))
+            return SIN_MEM;
+    }
 
     int *i, *posIns, *ult;
     ult = v -> vec + v -> tam -1;
@@ -162,22 +175,19 @@ bool vectorOrdEliminar (Vector* v, int elem) {
 
 bool vectorEliminarDePos (Vector* v, int pos) {
 
-    if (pos < 0)
+    if (pos < 0 || pos >= v -> tam -1)
         return false;
 
     int *i, *ult;
-    i = v -> vec + pos;
     ult = v -> vec + v -> tam -1;
 
-    if (i > ult)
-        return false;
-
-    while (i < ult) {
+    for (i = v -> vec + pos; i < ult; i++)
         *i = *(i + 1);
-        i++;
-    }
 
     v -> tam--;
+
+    if ((float) v -> tam / v -> cap <= FACTOR_OCUP)
+        redimensionarVector(v, DISMINUIR);
 
     return true;
 }
@@ -205,5 +215,30 @@ void vectorVaciar (Vector* v) {
 }
 
 void vectorDestruir (Vector* v) {
+    free(v -> vec);
     v -> tam = 0;
+    v -> cap = 0;
+    v -> vec = NULL;
+}
+
+bool redimensionarVector (Vector* v, int operacion) {
+    size_t nCap = operacion == AUMENTAR
+    ? v -> cap * FACTOR_INCR
+    : max(v -> cap * FACTOR_DECR, CAP_INI);
+
+    int* nVec = realloc(v -> vec, nCap * sizeof(int));
+
+    if (nVec == NULL)
+        return false;
+
+    printf("Redimension de %Iu a %Iu\n", v -> cap, nCap);
+
+    v -> vec = nVec;
+    v -> cap = nCap;
+
+    return true;
+}
+
+size_t max (size_t a, size_t b) {
+    return a >= b ? a : b;
 }

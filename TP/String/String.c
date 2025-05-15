@@ -158,7 +158,7 @@ int stringCompararI (const String* str1, const String* str2) {
 int stringIndiceDe(const String* str, const String* exp) {
 
     int pos = -1;
-    
+
     const char* letraActualStr = str -> contenido;
     const char* letraActualExp = exp -> contenido;
 
@@ -174,7 +174,7 @@ int stringIndiceDe(const String* str, const String* exp) {
                 coincidencias = 0;
                 letraActualExp = exp -> contenido;
             }
-                
+
             letraActualStr++;
         }
 
@@ -274,14 +274,10 @@ char aMinuscula (char letra) {
 }
 
 size_t longitudLiteral (const char* str) {
-
-    size_t longitud = 0;
     char* strP = (char*) str;
 
-    while (*strP != '\0') {
-        longitud++;
+    while (*strP != '\0')
         strP++;
-    }
-        
-    return longitud;
+
+    return strP - str;
 }
