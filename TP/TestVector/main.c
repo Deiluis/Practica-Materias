@@ -3,7 +3,8 @@
 #include <time.h>
 #include "../TDAVector/Vector.h"
 
-void mostrarVector(Vector* v);
+int compararInt (const void* a, const void* b);
+void imprimirInt (const void* a);
 
 int main () {
 
@@ -11,18 +12,46 @@ int main () {
 
     Vector vec;
 
-    if (!vectorCrear(&vec))
+    if (!vectorCrear(&vec, sizeof(int)))
         return SIN_MEM;
 
-    vectorOrdInsertar(&vec, 6);
-    vectorOrdInsertar(&vec, 8);
-    vectorOrdInsertar(&vec, 5);
-    vectorOrdInsertar(&vec, 3);
-    vectorOrdInsertar(&vec, 10);
-    vectorOrdInsertar(&vec, 79);
-    vectorOrdInsertar(&vec, 9);
-    vectorOrdInsertar(&vec, 11);
-    vectorOrdInsertar(&vec, 45);
+    srand(time(NULL));
+
+    // for (int i = 0; i < 10; i++) {
+    //     int elem = rand() % 100;
+    //     vectorInsertarAlFinal(&vec, &elem);
+    // }
+
+    // puts("Antes de ordenar:");
+    // vectorMostrar(&vec, imprimirInt);
+    // printf("\n");
+
+    // time_t segIni = time(NULL);
+
+    // vectorOrdenar(&vec, INSERCION, compararInt);
+
+    // time_t segFin = time(NULL);
+
+    // printf("Tiempo de ordenamiento: %Ids\n", segFin - segIni);
+
+    // puts("Despues de ordenar:");
+    // vectorMostrar(&vec, imprimirInt);
+    // printf("\n");
+
+
+
+    for (int i = 0; i < 6; i++) {
+        int elem = i;
+        vectorOrdInsertar(&vec, &elem, compararInt);
+    }
+
+    int busqueda = 6, pos;
+
+    pos = vectorOrdBuscar(&vec, &busqueda, compararInt);
+
+    vectorMostrar(&vec, imprimirInt);
+    printf("\n");
+    printf("Posicion: %d", pos);
 
 
     //vectorOrdInsertar(&vec, 333);
@@ -44,9 +73,14 @@ int main () {
     return 0;
 }
 
-void mostrarVector (Vector* v) {
-    int i;
+int compararInt (const void* a, const void* b) {
+    int* elem1 = (int*) a;
+    int* elem2 = (int*) b;
 
-    for (i = 0; i < v -> tam; i++)
-        printf("%d, ", v -> vec[i]);
+    return *elem1 - *elem2;
+}
+
+void imprimirInt (const void* elem) {
+    int* elemInt = (int*) elem;
+    printf("%3d", *elemInt);
 }

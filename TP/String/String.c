@@ -1,11 +1,24 @@
 #include "String.h"
+#include <stdio.h>
+
+// Internas
+bool redimensionarString (String*, size_t);
 
 // Primitivas
-void stringCrear (String* str) {
-    char* primerLetra = str -> contenido;
+bool stringCrear (String* str) {
 
     str -> longitud = 0;
-    *primerLetra = '\0';
+    str -> contenido = malloc(sizeof(char) * (CAP_INICIAL +1));
+
+    if (str -> contenido == NULL) {
+        str -> capacidad = 0;
+        return false;
+    }
+
+    str -> capacidad = CAP_INICIAL;
+    *(str -> contenido) = '\0';
+
+    return true;
 }
 
 size_t stringLongitud (const String* str) {
@@ -16,7 +29,12 @@ const char* stringContenido (const String* str) {
     return str -> contenido;
 }
 
-String stringCopiar (String* dest, const String* orig) {
+String* stringCopiar (String* dest, const String* orig) {
+
+    if (orig -> longitud != dest -> capacidad) {
+        if (!redimensionarString(dest, orig -> longitud))
+            return NULL;
+    }
 
     const char* letraActualOrig = orig -> contenido;
     char* letraActualDest = dest -> contenido;
@@ -32,95 +50,112 @@ String stringCopiar (String* dest, const String* orig) {
     *letraActualDest = '\0';
     dest -> longitud = letraActualDest - dest -> contenido;
 
-    return *dest;
+    return dest;
 }
 
-String stringCopiarLiteral (String* dest, const char* orig) {
+String* stringCopiarLiteral (String* dest, const char* orig) {
+
+    size_t longOrig = longitudLiteral(orig);
+
+    if (longOrig != dest -> capacidad) {
+        if (!redimensionarString(dest, longOrig))
+            return NULL;
+    }
 
     const char* letraActualOrig = orig;
     char* letraActualDest = dest -> contenido;
-    int i = 0;
 
-    while (*letraActualOrig != '\0' && i < MAX_LONGITUD) {
+    while (*letraActualOrig != '\0') {
 
         *letraActualDest = *letraActualOrig;
 
         letraActualOrig++;
         letraActualDest++;
-        i++;
     }
 
     *letraActualDest = '\0';
-    dest -> longitud = i;
+    dest -> longitud = letraActualDest - dest -> contenido;
 
-    return *dest;
+    return dest;
 }
 
-String stringConcat (String* str1, const String* str2) {
+String* stringConcat (String* str1, const String* str2) {
 
-    if (str1 -> longitud < MAX_LONGITUD) {
-        const char* letraActualStr2 = str2 -> contenido;
-        char* letraActualStr1 = str1 -> contenido + str1 -> longitud;
+    size_t sumaDeLongitudes = str1 -> longitud + str2 -> longitud;
 
-        while (*letraActualStr2 != '\0' && str1 -> longitud < MAX_LONGITUD) {
-            *letraActualStr1 = *letraActualStr2;
-
-            letraActualStr2++;
-            letraActualStr1++;
-            str1 -> longitud++;
-        }
-
-        *letraActualStr1 = '\0';
+    if (sumaDeLongitudes != str1 -> capacidad) {
+        if (!redimensionarString(str1, sumaDeLongitudes))
+            return NULL;
     }
 
-    return *str1;
+    const char* letraActualStr2 = str2 -> contenido;
+    char* letraActualStr1 = str1 -> contenido + str1 -> longitud;
+
+    while (*letraActualStr2 != '\0') {
+        *letraActualStr1 = *letraActualStr2;
+
+        letraActualStr2++;
+        letraActualStr1++;
+        str1 -> longitud++;
+    }
+
+    *letraActualStr1 = '\0';
+
+    return str1;
 }
 
-String stringSubstring (const String* str, const int inicio, const int fin) {
+String* stringSubstring (String* substr, const String* str, const int inicio, const int fin) {
 
-    String substr;
-    *(substr.contenido) = '\0';
-    substr.longitud = 0;
+    if (inicio > fin || inicio < 0)
+        return NULL;
 
-    if (inicio <= fin && inicio >= 0) {
+    int finAjustado = min(fin, str -> longitud -1);
 
-        const char* letraActualStr = str -> contenido + inicio;
-        char* letraActualSubstr = substr.contenido;
-        int finAjustado = fin <= str -> longitud -1 ? fin : str -> longitud -1;
-        const char* ult = str -> contenido + finAjustado;
-
-        while (letraActualStr <= ult) {
-            *letraActualSubstr = *letraActualStr;
-
-            letraActualStr++;
-            letraActualSubstr++;
-            substr.longitud++;
-        }
-
-        *letraActualSubstr = '\0';
+    if (substr -> capacidad != finAjustado +1 - inicio) {
+        if (!redimensionarString(substr, finAjustado +1 - inicio))
+            return NULL;
     }
+
+    const char* letraActualStr = str -> contenido + inicio;
+    char* letraActualSubstr = substr -> contenido;
+    const char* ult = str -> contenido + finAjustado;
+
+    while (letraActualStr <= ult) {
+        *letraActualSubstr = *letraActualStr;
+
+        letraActualStr++;
+        letraActualSubstr++;
+        substr -> longitud++;
+    }
+
+    *letraActualSubstr = '\0';
 
     return substr;
 }
 
-String stringConcatLiteral (String* str1, const char* str2) {
+String* stringConcatLiteral (String* str1, const char* str2) {
 
-    if (str1 -> longitud < MAX_LONGITUD) {
-        const char* letraActualStr2 = str2;
-        char* letraActualStr1 = str1 -> contenido + str1 -> longitud;
+    size_t sumaDeLongitudes = str1 -> longitud + longitudLiteral(str2);
 
-        while (*letraActualStr2 != '\0' && str1 -> longitud < MAX_LONGITUD) {
-            *letraActualStr1 = *letraActualStr2;
-
-            letraActualStr2++;
-            letraActualStr1++;
-            str1 -> longitud++;
-        }
-
-        *letraActualStr1 = '\0';
+    if (sumaDeLongitudes != str1 -> capacidad) {
+        if (!redimensionarString(str1, sumaDeLongitudes))
+            return NULL;
     }
 
-    return *str1;
+    const char* letraActualStr2 = str2;
+    char* letraActualStr1 = str1 -> contenido + str1 -> longitud;
+
+    while (*letraActualStr2 != '\0') {
+        *letraActualStr1 = *letraActualStr2;
+
+        letraActualStr2++;
+        letraActualStr1++;
+        str1 -> longitud++;
+    }
+
+    *letraActualStr1 = '\0';
+
+    return str1;
 }
 
 int stringComparar (const String* str1, const String* str2) {
@@ -199,8 +234,18 @@ bool stringTerminaCon (const String* str, const String* exp) {
 
 int stringIndiceDeLiteral(const String* str, const char* exp) {
     String strexp;
+    size_t cap = max(CAP_INICIAL, longitudLiteral(exp));
+
+    strexp.longitud  = 0;
+    strexp.contenido = malloc(sizeof(char) * (cap +1));
+
+    if (strexp.contenido == NULL) {
+        strexp.capacidad = 0;
+        return -1;
+    }
+
+    strexp.capacidad = cap;
     *(strexp.contenido) = '\0';
-    strexp.longitud = 0;
 
     stringCopiarLiteral(&strexp, exp);
     return stringIndiceDe(str, &strexp);
@@ -250,6 +295,13 @@ char stringCaracterEn (const String* str, const int pos) {
     return letra;
 }
 
+void stringDestruir (String* str) {
+    free(str -> contenido);
+    str -> longitud = 0;
+    str -> capacidad = 0;
+    str -> contenido = NULL;
+}
+
 // Utilitarias
 bool esMayuscula (char letra) {
     return letra >= 'A' && letra <= 'Z';
@@ -280,4 +332,31 @@ size_t longitudLiteral (const char* str) {
         strP++;
 
     return strP - str;
+}
+
+size_t max (size_t a, size_t b) {
+    return a >= b ? a : b;
+}
+
+size_t min (size_t a, size_t b) {
+    return a <= b ? a : b;
+}
+
+// Internas
+bool redimensionarString (String* str, size_t cap) {
+
+    char* nuevoCont;
+    size_t nuevaCap = max(CAP_INICIAL, cap);
+
+    nuevoCont = realloc(str -> contenido, sizeof(char) * (nuevaCap +1));
+
+    if (nuevoCont == NULL)
+        return false;
+
+    printf("Nueva capacidad: %Iu\n", nuevaCap);
+
+    str -> contenido = nuevoCont;
+    str -> capacidad = nuevaCap;
+
+    return true;
 }

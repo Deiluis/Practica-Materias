@@ -5,6 +5,8 @@
 #include <time.h>
 #include <string.h>
 
+#define SIN_MEM -1
+
 typedef struct
 {
     char str[11];
@@ -19,20 +21,26 @@ void liberarMemoria (Datamix** vec);
 int main () {
 
     Datamix *vec;
-    int i;
     size_t tam = 5;
 
     srand(time(NULL));
 
     if (!reservarMemoria(&vec, tam))
-        return -1;
+        return SIN_MEM;
 
-    for (i = 0; i < tam; i++) {
-        (vec + i) -> num = rand();
-        strcpy((vec + i) -> str, "Hola");
+    int* ult = vec + tam -1;
 
-        printf("num: %d\n", (vec + i) -> num);
-        printf("str: %s\n", (vec + i) -> str);
+    for (int* i = vec; i <= ult; i++) {
+        *i = rand();
+        printf("%d, ", *i);
+    }
+
+    for (Datamix* i = vec; i <= ult; i++) {
+        i -> num = rand();
+        strcpy(i -> str, "Hola");
+
+        printf("num: %d\n", i -> num);
+        printf("str: %s\n", i -> str);
     }
 
     liberarMemoria(&vec);

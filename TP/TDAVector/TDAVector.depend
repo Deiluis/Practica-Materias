@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1746712831 source:e:\programacion\c\materias-programacion\tp\tdavector\vector.c
+1749097326 source:e:\programacion\c\materias-programacion\tp\tdavector\vector.c
 	<stdbool.h>
 	<stdlib.h>
 	<stdio.h>
+	<string.h>
 	"Vector.h"
 
-1746712661 e:\programacion\c\materias-programacion\tp\tdavector\vector.h
+1749096083 e:\programacion\c\materias-programacion\tp\tdavector\vector.h
 	<stddef.h>
 	<stdbool.h>
 

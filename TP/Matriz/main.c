@@ -29,7 +29,7 @@ int main()
     //int (*matriz)[ORDEN] = malloc (sizeof(int) * ORDEN * ORDEN);
     int suma;
 
-    int** matriz = (int**) crearMatriz (sizeof(int), ORDEN, ORDEN);
+    int** matriz = (int**) crearMatriz(sizeof(int), ORDEN, ORDEN);
 
     if (!matriz)
         return 1;

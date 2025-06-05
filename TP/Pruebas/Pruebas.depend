@@ -1,10 +1,12 @@
 # depslib dependency file v1.0
-1746465020 source:e:\programacion\c\materias-programacion\tp\pruebas\main.c
+1748921764 source:e:\programacion\c\materias-programacion\tp\pruebas\main.c
 	<stdio.h>
 	<stdlib.h>
-	"../String/String.h"
+	<stdbool.h>
+	<stddef.h>
 
-1746465190 e:\programacion\c\materias-programacion\tp\string\string.h
+1748547250 e:\programacion\c\materias-programacion\tp\string\string.h
 	<stddef.h>
 	<stdbool.h>
+	<stdlib.h>
 

@@ -20,27 +20,35 @@
 #define AUMENTAR 1
 #define DISMINUIR 2
 
+#define BURBUJEO 1
+#define SELECCION 2
+#define SELECCION_DOBLE 3
+#define INSERCION 4
+
 typedef struct
 {
-    int* vec;
+    void* vec;
     size_t tam;
     size_t cap;
+    size_t tamElem;
 } Vector;
 
-bool vectorCrear (Vector* v);
-int vectorOrdInsertar(Vector* v, int elem);
-int vectorInsertarAlInicio(Vector* v, int elem);
-int vectorInsertarAlFinal(Vector* v, int elem);
-int vectorInsertarEnPos(Vector* v, int elem, int pos);
-int vectorOrdBuscar(const Vector* v, int elem);
-int vectorDesordBuscar(const Vector* v, int elem);
-bool vectorOrdEliminar (Vector* v, int elem);
+typedef int (*Cmp) (const void* a, const void* b);
+typedef void (*Imp) (const void* elem);
+
+bool vectorCrear (Vector* v, size_t tamElem);
+int vectorOrdInsertar(Vector* v, void* elem, Cmp cmp);
+int vectorInsertarAlInicio(Vector* v, void* elem, Cmp cmp);
+int vectorInsertarAlFinal(Vector* v, void* elem);
+int vectorInsertarEnPos(Vector* v, void* elem, int pos, Cmp cmp);
+int vectorOrdBuscar(const Vector* v, void* elem, Cmp cmp);
+int vectorDesordBuscar(const Vector* v, void* elem, Cmp cmp);
+bool vectorOrdEliminar (Vector* v, void* elem, Cmp cmp);
 bool vectorEliminarDePos (Vector* v, int pos);
-void vectorOrdenar (Vector* v);
+void vectorOrdenar (Vector* v, int metodo, Cmp cmp);
 void vectorVaciar (Vector* v);
 void vectorDestruir (Vector* v);
-bool redimensionarVector (Vector* v, int operacion);
+void vectorMostrar (const Vector* v, Imp imp);
 size_t max (size_t a, size_t b);
-
 
 #endif // VECTOR_H

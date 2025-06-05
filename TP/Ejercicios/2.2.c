@@ -4,12 +4,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define SIN_MEM -1
+
 bool reservarMemoria (int** vec, size_t tam);
 void liberarMemoria (int** vec);
 
 int main () {
 
-    int *vec, i;
+    int *vec;
     size_t tam;
 
     printf("Cantidad de elementos que tendrá el array: ");
@@ -18,11 +20,13 @@ int main () {
     srand(time(NULL));
 
     if (!reservarMemoria(&vec, tam))
-        return -1;
+        return SIN_MEM;
 
-    for (i = 0; i < tam; i++) {
-        *(vec + i) = rand();
-        printf("%d, ", *(vec + i));
+    int* ult = vec + tam -1;
+
+    for (int* i = vec; i <= ult; i++) {
+        *i = rand();
+        printf("%d, ", *i);
     }
 
     liberarMemoria(&vec);
