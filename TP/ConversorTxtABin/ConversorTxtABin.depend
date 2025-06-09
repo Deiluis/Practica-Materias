@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1749143840 source:e:\programacion\c\materias-programacion\tp\conversortxtabin\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+

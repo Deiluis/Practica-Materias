@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1749254942 source:e:\programacion\c\materias-programacion\tp\conversorbinatxt\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

@@ -98,13 +98,18 @@ void** crearMatriz (size_t tamElem, int filas, int columnas) {
     void** i = mtx;
     void** ult = mtx + filas -1;
 
-    while (mtx != NULL && i <= ult) {
+    bool mallocOk = true;
+
+    while (mallocOk && i <= ult) {
 
         *i = malloc(tamElem * columnas);
 
-        if (*i == NULL)
+        if (*i == NULL) {
             destruirMatriz(mtx, i - mtx);
-
+            mallocOk = false;
+            mtx = NULL;
+        }
+    
         i++;
     }
 
@@ -119,7 +124,6 @@ void destruirMatriz (void** mtx, int filas) {
         free(*i);
 
     free(mtx);
-    mtx = NULL;
 }
 
 void inicializarMatriz (int filas, int columnas, int** mtx) {
