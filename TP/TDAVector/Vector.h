@@ -3,14 +3,9 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "../Comun/CodigosRet.h"
 
 #define TAM 10
-
-#define LLENO 0
-#define DUPLICADO 1
-#define FUERA_RANGO 2
-#define OK 3
-#define SIN_MEM 4
 
 #define CAP_INI 8 // Cantidad elementos
 #define FACTOR_INCR 1.5 // Incremento del 50%
@@ -35,8 +30,11 @@ typedef struct
 
 typedef int (*Cmp) (const void* a, const void* b);
 typedef void (*Imp) (const void* elem);
+typedef void (*Accion) (void* elem, void* datos);
 
 bool vectorCrear (Vector* v, size_t tamElem);
+int vectorCrearDeArchivo (Vector* v, size_t tamElem, const char* nomArch);
+int vectorGrabar(Vector* v, const char* nomArch);
 int vectorOrdInsertar(Vector* v, void* elem, Cmp cmp);
 int vectorInsertarAlInicio(Vector* v, void* elem, Cmp cmp);
 int vectorInsertarAlFinal(Vector* v, void* elem);

@@ -5,6 +5,8 @@
 
 int compararInt (const void* a, const void* b);
 void imprimirInt (const void* a);
+void incrSueldoEmpl (void* elem, void* datos);
+void imprimirEmpleado (const void* empl);
 
 int main () {
 
@@ -15,7 +17,7 @@ int main () {
     if (!vectorCrear(&vec, sizeof(int)))
         return SIN_MEM;
 
-    srand(time(NULL));
+    // srand(time(NULL));
 
     // for (int i = 0; i < 10; i++) {
     //     int elem = rand() % 100;
@@ -40,18 +42,18 @@ int main () {
 
 
 
-    for (int i = 0; i < 6; i++) {
-        int elem = i;
-        vectorOrdInsertar(&vec, &elem, compararInt);
-    }
+    // for (int i = 0; i < 6; i++) {
+    //     int elem = i;
+    //     vectorOrdInsertar(&vec, &elem, compararInt);
+    // }
 
-    int busqueda = 6, pos;
+    // int busqueda = 6, pos;
 
-    pos = vectorOrdBuscar(&vec, &busqueda, compararInt);
+    // pos = vectorOrdBuscar(&vec, &busqueda, compararInt);
 
-    vectorMostrar(&vec, imprimirInt);
-    printf("\n");
-    printf("Posicion: %d", pos);
+    // vectorMostrar(&vec, imprimirInt);
+    // printf("\n");
+    // printf("Posicion: %d", pos);
 
 
     //vectorOrdInsertar(&vec, 333);
@@ -68,6 +70,15 @@ int main () {
 
     //mostrarVector(&vec);
 
+    Empleado empl;
+
+
+    float porcIncrSueldo = 10;
+
+    vectorRecorrer(&vec, incrSueldoEmpl, &porcIncrSueldo);
+
+    vectorMostrar(&vec, imprimirEmpl);
+
     vectorDestruir(&vec);
 
     return 0;
@@ -83,4 +94,10 @@ int compararInt (const void* a, const void* b) {
 void imprimirInt (const void* elem) {
     int* elemInt = (int*) elem;
     printf("%3d", *elemInt);
+}
+
+void incrSueldoEmpl (void* elem, void* datos) {
+    // Empleado empl = elem;
+    // float* porcIncrSueldo = (float*) datos;
+    // empl -> sueldo = empl -> sueldo + empl -> sueldo * porcIncrSueldo / 100;
 }

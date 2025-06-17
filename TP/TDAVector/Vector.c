@@ -28,6 +28,50 @@ bool vectorCrear (Vector* v, size_t tamElem) {
     return true;
 }
 
+int vectorCrearDeArchivo (Vector* v, size_t tamElem, const char* nomArch) {
+
+    FILE* arch = fopen(nomArch, "rb");
+
+    if (!arch)
+        return ERR_ARCHIVO;
+
+    fseek(arch, 0, SEEK_END);
+    size_t tamArchivo = ftell(arch);
+
+    v -> vec = malloc(tamArchivo);
+
+    if (v -> vec == NULL) {
+        fclose(arch);
+        v -> cap = 0;
+        return SIN_MEM;
+    }
+
+    v -> tam = tamArchivo / tamElem;
+    v -> cap = v -> tam;
+    v -> tamElem = tamElem;
+
+    rewind(arch); // equivalente a fseek desde 0 SEEK_SET
+
+    fread(v -> vec, tamElem, v -> tam, arch);
+    fclose(arch);
+
+    return OK;
+}
+
+int vectorGrabar(Vector* v, const char* nomArch) {
+
+    FILE* arch = fopen(nomArch, "wb");
+
+    if (!arch)
+        return ERR_ARCHIVO;
+
+    fwrite(v -> vec, v -> tamElem, v -> tam, arch);
+
+    fclose(arch);
+
+    return OK;
+}
+
 int vectorOrdInsertar(Vector* v, void* elem, Cmp cmp) {
 
     if (v -> tam == v -> cap) {
@@ -48,7 +92,7 @@ int vectorOrdInsertar(Vector* v, void* elem, Cmp cmp) {
 
     for (i = ult; i >= posIns; i -= v -> tamElem)
         memcpy(i + v -> tamElem, i, v -> tamElem);
-        
+
     memcpy(posIns, elem, v -> tamElem);
     v -> tam++;
 
@@ -151,7 +195,9 @@ int vectorOrdBuscar(const Vector* v, void* elem, Cmp cmp) {
     */
     if (li > ls)
         return -1;
-        
+
+    memcpy(elem, m, v -> tamElem);
+
     return (m - v -> vec) / v -> tamElem;
 }
 
@@ -249,6 +295,15 @@ void vectorMostrar (const Vector* v, Imp imp) {
         imp(i);
 }
 
+void vectorRecorrer (const Vector* v, Accion accion, void* datos) {
+
+    void* i;
+    void* ult = v -> vec + (v -> tam -1) * v -> tamElem;
+
+    for (i = v -> vec; i <= ult; i += v -> tamElem)
+        accion(i, datos);
+}
+
 bool redimensionarVector (Vector* v, int operacion) {
     size_t nCap = operacion == AUMENTAR
     ? v -> cap * FACTOR_INCR
@@ -259,7 +314,7 @@ bool redimensionarVector (Vector* v, int operacion) {
     if (nVec == NULL)
         return false;
 
-    printf("Redimension de %Iu a %Iu\n", v -> cap, nCap);
+    printf("Redimension de %llu a %llu\n", v -> cap, nCap);
 
     v -> vec = nVec;
     v -> cap = nCap;
@@ -268,7 +323,7 @@ bool redimensionarVector (Vector* v, int operacion) {
 }
 
 void ordenarBurbujeo (Vector* v, Cmp cmp) {
-    
+
     int i;
     void *j, *ult;
     ult = v -> vec + (v -> tam -1) * v -> tamElem;
@@ -341,7 +396,7 @@ void ordenarInsercion (Vector* v, Cmp cmp) {
         j = i - v -> tamElem;
 
         while (j >= v -> vec && cmp(j, elem) > 0) { // Podría mover todo el bloque con memmove
-            memcpy(j + v -> tamElem, j, v -> tamElem); 
+            memcpy(j + v -> tamElem, j, v -> tamElem);
             j -= v -> tamElem;
         }
 

@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1749737045 source:c:\users\estudiante\desktop\facultad\materias-programacion\tp\archivos\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../Comun/CodigosRet.h"
+	"../TDAVector/Vector.h"
+
+1749736195 c:\users\estudiante\desktop\facultad\materias-programacion\tp\comun\codigosret.h
+
+1749733797 c:\users\estudiante\desktop\facultad\materias-programacion\tp\tdavector\vector.h
+	<stddef.h>
+	<stdbool.h>
+	"../Comun/CodigosRet.h"
+

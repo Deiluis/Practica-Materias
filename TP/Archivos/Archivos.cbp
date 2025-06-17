@@ -2,31 +2,29 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Registro" />
+		<Option title="Archivos" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/Registro" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
+				<Option output="bin/Debug/Archivos" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="2" />
+				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
+				<Option parameters="Productos.dat 10 UVA" />
 				<Compiler>
-					<Add option="-Wall" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add library="../TDAVector/bin/Debug/libTDAVector.a" />
+				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/Registro" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
+				<Option output="bin/Release/Archivos" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="2" />
+				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-Wall" />
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
@@ -34,11 +32,12 @@
 				</Linker>
 			</Target>
 		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Extensions>
-			<lib_finder disable_auto="1" />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
