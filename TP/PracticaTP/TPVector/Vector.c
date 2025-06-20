@@ -32,15 +32,24 @@ int vectorCargarDeTxt (Vector* v, const char* nomArchTxt, Fmt formatear, size_t 
 
     FILE* archTxt = fopen(nomArchTxt, "rt");
     void* reg;
-    char buffer[bufferTam +1];
     int cod = TODO_OK;
+    char* buffer;
 
     if (!archTxt)
         return ERR_ARCHIVO;
 
+    /* Esto nos evita declararlo como un VLA en el stack. */
+    buffer = malloc(sizeof(char) * (bufferTam +1));
+
+    if (!buffer) {
+        fclose(archTxt);
+        return SIN_MEM;
+    }
+    
     reg = malloc(v -> tamElem);
 
     if (!reg) {
+        free(buffer);
         fclose(archTxt);
         return SIN_MEM;
     }
@@ -50,11 +59,12 @@ int vectorCargarDeTxt (Vector* v, const char* nomArchTxt, Fmt formatear, size_t 
         cod = formatear(reg, buffer);
 
         if (cod == TODO_OK)
-            cod = vectorEscribir(v, reg);
+            cod = vectorAgregarAlFinal(v, reg);
     }
 
     fclose(archTxt);
     free(reg);
+    free(buffer);
 
     return cod;
 }
@@ -82,56 +92,18 @@ int vectorCargarDeBin (Vector* v, const char* nomArchBin) {
     return TODO_OK;
 }
 
-int vectorEscribir (Vector* v, void* elem) {
+int vectorAgregarAlFinal (Vector* v, void* elem) {
 
-    void* max = v -> vec + (v -> cap -1) * v -> tamElem;
-    void* ult = v -> vec + (v -> cantElem -1) * v -> tamElem;
-
-    if (v -> cur > max) {
+    if (v -> cantElem == v -> cap) {
         if (!redimensionarVector(v, AUMENTAR))
             return SIN_MEM;
     }
 
-    if (v -> cur > ult)
-        v -> cantElem++;
-
-    memcpy(v -> cur, elem, v -> tamElem);
-    v -> cur += v -> tamElem;
+    void* posIns = v -> vec + v -> cantElem * v -> tamElem;
+    memcpy(posIns, elem, v -> tamElem);
+    v -> cantElem++;
 
     return TODO_OK;
-}
-
-bool vectorLeer (Vector* v, void* elem) {
-
-    void* ult = v -> vec + (v -> cantElem -1) * v -> tamElem;
-
-    if (v -> cur < v -> vec || v -> cur > ult)
-        return false;
-
-    memcpy(elem, v -> cur, v -> tamElem);
-    v -> cur += v -> tamElem;
-
-    return true;
-}
-
-void vectorPosicionarCursor (Vector* v, size_t desp, int ref) {
-
-    switch (ref) {
-        case INICIO:
-            v -> cur = v -> vec + desp * v -> tamElem;
-            break;
-
-        case ACTUAL:
-            v -> cur += desp * v -> tamElem;
-            break;
-
-        case FIN:
-            v -> cur = v -> vec + (v -> cantElem -1) * v -> tamElem + desp * v -> tamElem;
-            break;
-
-        default:
-            break;
-    }
 }
 
 void vectorMostrar (Vector* v, Imp imprimir) {
@@ -160,6 +132,35 @@ int vectorDesordBuscar (Vector* v, void* elem, Cmp comparar) {
         memcpy(elem, i, v -> tamElem);
 
     return pos;
+}
+
+int vectorOrdBuscar(const Vector* v, void* elem, Cmp comparar) {
+
+    if (v -> cantElem == 0)
+        return -1;
+
+    const void *li, *ls, *m;
+
+    li = v -> vec;
+    ls = v -> vec + (v -> cantElem -1) * v -> tamElem;
+    m = li + (((ls - li) / v -> tamElem) / 2) * v -> tamElem;
+
+    while (li <= ls && comparar(m, elem) != 0) {
+
+        if (comparar(elem, m) > 0)
+            li = m + v -> tamElem;
+        else
+            ls = m - v -> tamElem;
+
+        m = li + (((ls - li) / v -> tamElem) / 2) * v -> tamElem;
+    }
+
+    if (li > ls)
+        return -1;
+
+    memcpy(elem, m, v -> tamElem);
+
+    return (m - v -> vec) / v -> tamElem;
 }
 
 int vectorUnir (Vector* v1, Vector* v2) {
@@ -198,7 +199,6 @@ void vectorEliminarDePos (Vector* v, int pos) {
 }
 
 void vectorDestruir (Vector* v) {
-
     free(v -> vec);
 
     v -> vec = NULL;
@@ -292,4 +292,64 @@ bool redimensionarVectorA (Vector* v, size_t redimension) {
 
 size_t max (size_t a, size_t b) {
     return a >= b ? a : b;
+}
+
+/* Vector iterador */
+
+void vectorIteradorCrear (VectorIterador* it, const Vector* v) {
+    it -> act = NULL;
+    it -> ult = NULL;
+    it -> finIter = true;
+    it -> vector = (Vector*) v;
+}
+
+void* vectorIteradorPrimero (VectorIterador* it) {
+    Vector* v = it -> vector;
+
+    if (v -> cantElem == 0) {
+        it -> act = NULL;
+        it -> ult = NULL;
+        it -> finIter = true;
+        return NULL;
+    }
+
+    it -> act = v -> vec;
+    it -> ult = v -> vec + (v -> cantElem -1) * v -> tamElem;
+    it -> finIter = false;
+
+    return it -> act;
+}
+
+void* vectorIteradorSiguiente (VectorIterador* it) {
+
+    Vector* v = it -> vector;
+
+    void* siguiente = it -> act + v -> tamElem;
+
+    if (siguiente > it -> ult) {
+        it -> finIter = true;
+        return NULL;
+
+    } else if (siguiente <= v -> vec)
+        return NULL;
+
+    it -> act = siguiente;
+
+    return siguiente;
+}
+
+void* vectorIteradorDesplazamiento (VectorIterador *it, size_t cantidad) {
+    const Vector *v = it -> vector;
+    void* cur = it -> act + v-> tamElem * cantidad;
+
+    if (cur < v -> vec || cur > it -> ult)
+        return NULL;
+
+    it -> act = cur;
+
+    return it -> act;
+}
+
+bool vectorIteradorFin (VectorIterador* it) {
+    return it -> finIter;
 }

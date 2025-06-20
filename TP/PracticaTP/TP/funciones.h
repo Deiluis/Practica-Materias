@@ -5,7 +5,7 @@
 
 #define BUFFER_TAM 255
 #define PERIODO_TAM 12
-#define N_GENERAL_ABERTURAS_TAM 41 /* Algunos campos de los archivos miden hasta 40 caracteres */
+#define N_GENERAL_APERTURAS_TAM 41 /* Algunos campos de los archivos miden hasta 40 caracteres */
 #define INDICE_ICC_TAM 17
 #define CLASIFICADOR_TAM 14
 #define V_MENSUAL_TAM 8
@@ -15,7 +15,7 @@
 
 typedef struct {
     char periodo[PERIODO_TAM];
-    char nGeneralAberturas[N_GENERAL_ABERTURAS_TAM];
+    char nGeneralAperturas[N_GENERAL_APERTURAS_TAM];
     char indiceICC[INDICE_ICC_TAM];
     char clasificador[CLASIFICADOR_TAM];
     char vMensual[V_MENSUAL_TAM];
@@ -25,8 +25,8 @@ typedef struct {
 typedef struct {
     char periodo[PERIODO_TAM];
     char clasificador[CLASIFICADOR_TAM];
-    char nGeneralAberturas[N_GENERAL_ABERTURAS_TAM];
-    char tipoVariable[N_GENERAL_ABERTURAS_TAM];
+    char nGeneralAperturas[N_GENERAL_APERTURAS_TAM];
+    char tipoVariable[N_GENERAL_APERTURAS_TAM];
     char valor[VALOR_TAM];
 } RegistroExportado;
 
@@ -41,8 +41,9 @@ void corregirRegistros (Vector* v, Crr corrector);
 void corregirIccGeneral (Registro* reg);
 void corregirItemsObra (Registro* reg);
 
-int compRegistrosPeriodoClasificador (const void* regA, const void* regB);
-void calcularVariaciones (Vector* v);
+int compRegistrosPeriodo (const void* regA, const void* regB);
+void calcularVariacionMensual (Vector* v);
+void calcularVariacionAnual (Vector* v);
 int cargarABinario (Vector* v, const char* nomArchBin);
 
 #endif

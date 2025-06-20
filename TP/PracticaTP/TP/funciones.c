@@ -4,18 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Prototipos de funciones internas, no accesibles desde main. */
 void corregirFecha (char* fecha);
 void desencriptarIccGeneral (char* str);
 void desencriptarItemsObra (char* str);
 void normalizarItemsObra (char* str);
-float variacionANMeses (Vector* v, Registro* reg, size_t meses);
 
 bool esLetra (char c);
 char aMayuscula(char c);
 int compararFecha (char* fecha1, char* fecha2);
 int compRegistrosPeriodoNGeneralAb (const void* regA, const void* regB);
 void copiarReg (Vector* v, RegistroExportado* regExp, Registro* reg, const char* tVariable, FILE* archBin);
+size_t cantidadIndices (Vector* v);
 
+/* --- Declaraciones --- */
 
 int cargarEnRegistro (void* reg, char* buffer) {
     Registro* r = reg;
@@ -36,7 +38,7 @@ int cargarEnRegistro (void* reg, char* buffer) {
     *act = '\0';
     act = buscarEnStringReversa(buffer, ';');
 
-    sscanf(act +1, "%s", r -> nGeneralAberturas);
+    sscanf(act +1, "%s", r -> nGeneralAperturas);
 
     *act = '\0';
 
@@ -49,8 +51,8 @@ void mostrarRegistro (const void* reg) {
     const Registro* r = reg;
 
     printf(
-        "%s;%s;%s;%s;%s;%s\n",
-        r -> periodo, r -> nGeneralAberturas, r -> indiceICC, r -> clasificador, r -> vMensual,  r -> vAnual
+        "%s;%s;%s;%s\n",
+        r -> periodo, r -> nGeneralAperturas, r -> indiceICC, r -> clasificador
     );
 }
 
@@ -59,24 +61,25 @@ void mostrarRegistroExportado (const void* reg) {
 
     printf(
         "%s;%s;%s;%s;%s\n",
-        r -> periodo, r -> clasificador, r -> nGeneralAberturas, r -> tipoVariable, r -> valor
+        r -> periodo, r -> clasificador, r -> nGeneralAperturas, r -> tipoVariable, r -> valor
     );
 }
 
+/* Recorre y corrige los registros obtenidos para cada archivo. */
 void corregirRegistros (Vector* v, Crr corrector) {
 
-    Registro reg;
+    Registro* reg;
+    VectorIterador it;
 
-    /* Elimina la cabecera */
+    /* Elimina la cabecera. */
     vectorEliminarDePos(v, 0);
 
-    vectorPosicionarCursor(v, 0, INICIO);
+    vectorIteradorCrear(&it, v);
+    reg = (Registro*) vectorIteradorPrimero(&it);
 
-    while (vectorLeer(v, &reg)) {
-        corrector(&reg);
-
-        vectorPosicionarCursor(v, -1, ACTUAL);
-        vectorEscribir(v, &reg);
+    while (!vectorIteradorFin(&it)) {
+        corrector(reg);
+        reg = (Registro*) vectorIteradorSiguiente(&it);
     }
 }
 
@@ -88,12 +91,12 @@ void corregirIccGeneral (Registro* reg) {
 
     reemplazarCharEnString(reg -> indiceICC, ',', '.');
 
-    desencriptarIccGeneral(reg -> nGeneralAberturas);
+    desencriptarIccGeneral(reg -> nGeneralAperturas);
 
-    reemplazarCharEnString(reg -> nGeneralAberturas, '_', ' ');
-    *(reg -> nGeneralAberturas) = aMayuscula(*(reg -> nGeneralAberturas));
+    reemplazarCharEnString(reg -> nGeneralAperturas, '_', ' ');
+    *(reg -> nGeneralAperturas) = aMayuscula(*(reg -> nGeneralAperturas));
 
-    esNGeneral = compararString(reg -> nGeneralAberturas, "Nivel general") == 0;
+    esNGeneral = compararString(reg -> nGeneralAperturas, "Nivel general") == 0;
 
     copiarString(
         reg -> clasificador,
@@ -108,9 +111,9 @@ void corregirItemsObra (Registro* reg) {
 
     reemplazarCharEnString(reg -> indiceICC, ',', '.');
 
-    desencriptarItemsObra(reg -> nGeneralAberturas);
+    desencriptarItemsObra(reg -> nGeneralAperturas);
 
-    normalizarItemsObra(reg -> nGeneralAberturas);
+    normalizarItemsObra(reg -> nGeneralAperturas);
 
     copiarString(reg -> clasificador, "Ítems", CLASIFICADOR_TAM -1);
 }
@@ -190,92 +193,69 @@ void normalizarItemsObra (char* str) {
     reemplazarCharEnString(str, '_', ' ');
 }
 
-int compRegistrosPeriodoClasificador (const void* regA, const void* regB) {
+int compRegistrosPeriodo (const void* regA, const void* regB) {
 
     Registro* rA = (Registro*) regA;
     Registro* rB = (Registro*) regB;
-    Vector diccionario;
-    int compFecha, posA, posB;
 
-    compFecha = compararFecha(rA -> periodo, rB -> periodo);
-
-    if (compFecha != 0)
-        return compFecha;
-
-    /* Todo esto de acá abajo no hace falta realmente, por como estan hechos los archivos, al ordenar por periodo, el clasificador queda ordenado */
-
-    vectorCrear(&diccionario, CLASIFICADOR_TAM);
-
-    vectorEscribir(&diccionario, "Nivel general");
-    vectorEscribir(&diccionario, "Capítulos");
-    vectorEscribir(&diccionario, "Ítems");
-
-    posA = vectorDesordBuscar(&diccionario, rA -> clasificador, compararString);
-    posB = vectorDesordBuscar(&diccionario, rB -> clasificador, compararString);
-
-    vectorDestruir(&diccionario);
-
-    return posA - posB;
+    return compararFecha(rA -> periodo, rB -> periodo);
 }
 
-void calcularVariaciones (Vector* v) {
+/* Teniendo en cuenta la cantidad de items en nivel_general_aperturas calcula el mes anterior del mismo item  y obtiene la variación. */
+void calcularVariacionMensual (Vector* v) {
 
-    float vMensual, vAnual;
-    Registro reg;
+    VectorIterador it;
+    vectorIteradorCrear(&it, v);
+    size_t cantidadPorMes = cantidadIndices(v);
+    Registro* reg = (Registro*) vectorIteradorPrimero(&it);
+    double variacion;
+    int i;
 
-    vectorPosicionarCursor(v, 0, INICIO);
+    /* Los del primer mes no tienen variación. */
+    for(i = 0; i < cantidadPorMes; i++) {
+        sprintf(reg -> vMensual, "NA");
+        reg = (Registro*) vectorIteradorSiguiente(&it);
+    }
 
-    while (vectorLeer(v, &reg)) {
-        vMensual = variacionANMeses(v, &reg, 1);
-        vAnual = variacionANMeses(v, &reg, 12);
+    while(!vectorIteradorFin(&it)) {
+        Registro* regAnterior = vectorIteradorDesplazamiento(&it, -cantidadPorMes);
+        vectorIteradorDesplazamiento(&it, cantidadPorMes);
 
-        if (vMensual != 0)
-            sprintf(reg.vMensual, "%.2f", vMensual);
-        else
-            copiarString(reg.vMensual, "NA", V_MENSUAL_TAM -1);
+        variacion = (atof(reg -> indiceICC) / atof(regAnterior -> indiceICC) -1) * 100;
+        sprintf(reg-> vMensual, "%.2f", variacion);
 
-        if (vAnual != 0)
-            sprintf(reg.vAnual, "%.2f", vAnual);
-        else
-            copiarString(reg.vAnual, "NA", V_ANUAL_TAM -1);
-
-        vectorPosicionarCursor(v, -1, ACTUAL);
-        vectorEscribir(v, &reg);
+        reg = (Registro*) vectorIteradorSiguiente(&it);
     }
 }
 
-float variacionANMeses (Vector* v, Registro* reg, size_t meses) {
+/* Teniendo en cuenta la cantidad de items en nivel_general_aperturas calcula el año anterior del mismo item y obtiene la variación. */
+void calcularVariacionAnual (Vector* v) {
 
-    int dia, mes, anio, pos;
-    float variacion = 0;
-    Registro elem;
+    VectorIterador it;
+    vectorIteradorCrear(&it, v);
+    size_t cantidadPorAnio = cantidadIndices(v) * 12;
+    Registro* reg = (Registro*) vectorIteradorPrimero(&it);
+    double variacion;
+    int i;
 
-    sscanf(reg -> periodo, "%d-%d-%d", &anio, &mes, &dia);
-
-    while (meses >= 12) {
-        anio--;
-        meses -= 12;
+    /* Los del primer año no tienen variación. */
+    for (i = 0; i < cantidadPorAnio; i++) {
+        sprintf(reg -> vAnual, "NA");
+        reg = (Registro*) vectorIteradorSiguiente(&it);
     }
 
-    mes -= meses;
+    while(!vectorIteradorFin(&it)) {
+        Registro* regAnterior = vectorIteradorDesplazamiento(&it, -cantidadPorAnio);
+        vectorIteradorDesplazamiento(&it, cantidadPorAnio);
 
-    if (mes == 0) {
-        anio--;
-        mes = 12;
+        variacion = (atof(reg -> indiceICC) / atof(regAnterior -> indiceICC) -1) * 100;
+        sprintf(reg-> vAnual, "%.2f", variacion);
+
+        reg = (Registro*) vectorIteradorSiguiente(&it);
     }
-
-    sprintf(elem.periodo, "%4d-%02d-%02d", anio, mes, dia);
-    copiarString(elem.nGeneralAberturas, reg -> nGeneralAberturas, N_GENERAL_ABERTURAS_TAM -1);
-
-    /* Hacer con binary search */
-    pos = vectorDesordBuscar(v, &elem, compRegistrosPeriodoNGeneralAb);
-
-    if (pos != -1)
-        variacion = (atof(reg -> indiceICC) / atof(elem.indiceICC) -1) * 100;
-
-    return variacion;
 }
 
+/* Desglosa cada registro en 3 y los va cargando secuencialmente. */
 int cargarABinario (Vector* v, const char* nomArchBin) {
 
     FILE* archBin = fopen(nomArchBin, "wb");
@@ -294,6 +274,8 @@ int cargarABinario (Vector* v, const char* nomArchBin) {
     return TODO_OK;
 }
 
+
+/* --- Auxiliares --- */
 
 bool esLetra (char c) {
     return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
@@ -319,6 +301,7 @@ int compararFecha (char* fecha1, char* fecha2) {
     return f1 - f2;
 }
 
+/* Compara primero por periodo y luego desempata por el nombre del indice en nivel_general_aperturas. */
 int compRegistrosPeriodoNGeneralAb (const void* regA, const void* regB) {
 
     Registro* rA = (Registro*) regA;
@@ -329,18 +312,19 @@ int compRegistrosPeriodoNGeneralAb (const void* regA, const void* regB) {
     if (compFecha != 0)
         return compFecha;
 
-    return compararString(rA -> nGeneralAberturas, rB -> nGeneralAberturas);
+    return compararString(rA -> nGeneralAperturas, rB -> nGeneralAperturas);
 }
 
 void copiarReg (Vector* v, RegistroExportado* regExp, Registro* reg, const char* tVariable, FILE* archBin) {
 
     char valor[VALOR_TAM];
+    VectorIterador it;
 
-    vectorPosicionarCursor(v, 0, INICIO);
+    vectorIteradorCrear(&it, v);
 
-    while (vectorLeer(v, reg)) {
+    reg = (Registro*) vectorIteradorPrimero(&it);
 
-        /* Esto podría hacerse mejor */
+    while (!vectorIteradorFin(&it)) {
 
         if (compararString(tVariable, "indice_icc") == 0)
             copiarString(valor, reg -> indiceICC, VALOR_TAM);
@@ -351,13 +335,44 @@ void copiarReg (Vector* v, RegistroExportado* regExp, Registro* reg, const char*
                 copiarString(valor, reg -> vAnual, VALOR_TAM);
         }
 
-
         copiarString(regExp -> periodo, reg -> periodo, PERIODO_TAM);
         copiarString(regExp -> clasificador, reg -> clasificador, CLASIFICADOR_TAM);
-        copiarString(regExp -> nGeneralAberturas, reg -> nGeneralAberturas, N_GENERAL_ABERTURAS_TAM);
+        copiarString(regExp -> nGeneralAperturas, reg -> nGeneralAperturas, N_GENERAL_APERTURAS_TAM);
         copiarString(regExp -> tipoVariable, tVariable, T_VARIABLE_TAM);
         copiarString(regExp -> valor, valor, VALOR_TAM);
 
         fwrite(regExp, sizeof(RegistroExportado), 1, archBin);
+
+        reg = (Registro*) vectorIteradorSiguiente(&it);
     }
+}
+
+/* Calcula cuantos indices se manejan por mes en nivel_general_aperturas */
+size_t cantidadIndices (Vector* v) {
+
+    size_t cantidad = 0;
+    VectorIterador it;
+    Registro* reg;
+
+    vectorIteradorCrear(&it, v);
+
+    char primerIndice[N_GENERAL_APERTURAS_TAM];
+    reg = (Registro*) vectorIteradorPrimero(&it);
+
+    /* Si no encuentra indices para cotejar, devuelve 0 */
+    if (vectorIteradorFin(&it))
+        return cantidad;
+
+    copiarString(primerIndice, reg -> nGeneralAperturas, N_GENERAL_APERTURAS_TAM -1);
+    cantidad++;
+
+    reg = (Registro*) vectorIteradorSiguiente(&it);
+
+    /* Se verifica el fin del iterador por las dudas, aunque con el juego de datos dado, nunca llega al fin */
+    while (!vectorIteradorFin(&it) && compararString(reg -> nGeneralAperturas, primerIndice) != 0) {
+        cantidad++;
+        reg = (Registro*) vectorIteradorSiguiente(&it);
+    }
+
+    return cantidad;
 }

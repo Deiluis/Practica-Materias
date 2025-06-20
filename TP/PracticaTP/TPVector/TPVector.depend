@@ -15,14 +15,14 @@
 1750180829 e:\programacion\c\materias-programacion\tp\tpstring\string.h
 	<stddef.h>
 
-1750418418 source:e:\programacion\c\materias-programacion\tp\practicatp\tpvector\vector.c
+1750437346 source:e:\programacion\c\materias-programacion\tp\practicatp\tpvector\vector.c
 	"Vector.h"
 	"../TPString/string.h"
 	<stdlib.h>
 	<string.h>
 	<stdio.h>
 
-1750418441 e:\programacion\c\materias-programacion\tp\practicatp\tpvector\vector.h
+1750430376 e:\programacion\c\materias-programacion\tp\practicatp\tpvector\vector.h
 	<stddef.h>
 	"../TPComun/TPComun.h"
 

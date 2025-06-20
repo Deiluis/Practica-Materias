@@ -9,7 +9,27 @@
 
 #define RUTA_TAM 254
 
-/* TP.exe indices_icc_general_capitulos.csv Indices_items_obra.csv indices_unificado.dat */
+/* 
+ * Nota:
+ * Hay cosas duras en la vida, desaprobar un parcial, ver como Boca pierde la septima, 
+   o tener que usar comentarios multilinea cuando solo quiero comentar una línea.
+ * Atte: Los predicadores de Linux.
+*/
+
+/* 
+ * Nota 2: 
+ * Tenemos al menos 6 chistes más sobre comentarios multilinea pero no queremos ocupar más espacio en el main.
+   Aunque considerando que ya estamos ocupando espacio con estas notas, pierde el sentido.
+ * Atte: Los predicadores de Linux (de nuevo).
+*/
+
+/* 
+ * Argumentos a main:
+ * TP.exe 
+ * ../TP/archivos/indices_icc_general_capitulos.csv 
+ * ../TP/archivos/Indices_items_obra.csv 
+ * archivos/indices_unificado.dat
+*/
 int main (int argc, char* argv[]) {
 
     Vector vecIccGeneral, vecItemsObra;
@@ -54,13 +74,21 @@ int main (int argc, char* argv[]) {
 
     vectorDestruir(&vecItemsObra);
 
-    cod = vectorOrdenar(&vecIccGeneral, INSERCION, compRegistrosPeriodoClasificador);
+    /* 
+     *  Solo se compara por periodo y no por clasificador ya que, al concatenar los vectores y luego ordenar por periodo, 
+        el clasificador también queda ordenado.
+    */
+    cod = vectorOrdenar(
+        &vecIccGeneral, 
+        INSERCION, 
+        compRegistrosPeriodo
+    );
 
     if (cod != TODO_OK)
         return cod;
 
-
-    calcularVariaciones(&vecIccGeneral);
+    calcularVariacionMensual(&vecIccGeneral);
+    calcularVariacionAnual(&vecIccGeneral);
 
     cod = cargarABinario(&vecIccGeneral, argv[ARG_NOM_ARCH_INDICES_UNIF]);
 
@@ -70,7 +98,7 @@ int main (int argc, char* argv[]) {
     vectorDestruir(&vecIccGeneral);
 
 
-    /* Prueba para verificar que se hayan cargado bien los registros en el binario */
+    /* Descomentar el codigo de abajo para verificar que se hayan cargado bien los registros en el binario. */
 
     /*
     char ruta[RUTA_TAM +1] = "../TP/";
