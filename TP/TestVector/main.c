@@ -1,103 +1,178 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
 #include "../TDAVector/Vector.h"
 
-int compararInt (const void* a, const void* b);
-void imprimirInt (const void* a);
-void incrSueldoEmpl (void* elem, void* datos);
-void imprimirEmpleado (const void* empl);
 
-int main () {
+typedef struct
+{
+    int d;
+    int m;
+    int a;
+}
+Fecha;
 
-    system("chcp 65001 > nul");
 
-    Vector vec;
+typedef struct
+{
+    int legajo;
+    char apynom[51];
+    float sueldo;
+}
+Empleado;
 
-    if (!vectorCrear(&vec, sizeof(int)))
+
+void printVector(int* vec, size_t ce);
+void imprimirInt(const void* a);
+void imprimirFecha(const void* a);
+void imprimirEmpleado(const void* a);
+int cmpFechas(const void* a, const void* b);
+int cmpEmpl(const void* a, const void* b);
+void incrSueldoEmpl(void* elem, void* datos);
+
+
+int main()
+{
+    // Change the code page to support spanish characters in Windows terminal
+    // system("chcp 65001 > nul");
+
+    Vector miVec;
+    if(!vectorCrear(&miVec, sizeof(Empleado)))
+    {
         return SIN_MEM;
+    }
 
-    // srand(time(NULL));
+    srand(time(NULL));
+//    Fecha f = {1, 5, 2025};
+    Empleado empl;
 
-    // for (int i = 0; i < 10; i++) {
-    //     int elem = rand() % 100;
-    //     vectorInsertarAlFinal(&vec, &elem);
-    // }
+    empl.legajo = 1;
+    strcpy(empl.apynom, "Juan Perez");
+    empl.sueldo = 100000;
+    vectorInsertarAlFinal(&miVec, &empl);
+
+    empl.legajo = 2;
+    strcpy(empl.apynom, "Roberto Rodriguez");
+    empl.sueldo = 200000;
+    vectorInsertarAlFinal(&miVec, &empl);
+
+    empl.legajo = 3;
+    strcpy(empl.apynom, "Belen Berardi");
+    empl.sueldo = 300000;
+    vectorInsertarAlFinal(&miVec, &empl);
+
+    Empleado emplABuscar;
+    emplABuscar.legajo = 2;
+
+    int pos = vectorOrdBuscar(&miVec, &emplABuscar, cmpEmpl);
+
+    if(pos == -1)
+    {
+        puts("Empleado no encontrado");
+        return 1;
+    }
+
+    printf("Posicion: %d\n", pos);
+    printf("Nombre: %s\n", emplABuscar.apynom);
 
     // puts("Antes de ordenar:");
-    // vectorMostrar(&vec, imprimirInt);
-    // printf("\n");
+    // vectorMostrar(&miVec, imprimirFecha);
 
     // time_t segIni = time(NULL);
 
-    // vectorOrdenar(&vec, INSERCION, compararInt);
+    // vectorOrdenar(&miVec, QSORT, cmpFechas);
 
     // time_t segFin = time(NULL);
 
-    // printf("Tiempo de ordenamiento: %Ids\n", segFin - segIni);
+    // printf("Tiempo de ordenamiento: %ld\n", segFin - segIni);
 
-    // puts("Despues de ordenar:");
-    // vectorMostrar(&vec, imprimirInt);
-    // printf("\n");
+    // puts("Después de ordenar:");
+    // vectorMostrar(&miVec, imprimirFecha);
 
-
-
-    // for (int i = 0; i < 6; i++) {
-    //     int elem = i;
-    //     vectorOrdInsertar(&vec, &elem, compararInt);
-    // }
-
-    // int busqueda = 6, pos;
-
-    // pos = vectorOrdBuscar(&vec, &busqueda, compararInt);
-
-    // vectorMostrar(&vec, imprimirInt);
-    // printf("\n");
-    // printf("Posicion: %d", pos);
-
-
-    //vectorOrdInsertar(&vec, 333);
-
-    // vectorInsertarAlInicio(&vec, 37);
-    // vectorInsertarAlFinal(&vec, -4);
-
-    // vectorOrdenar(&vec);
-
-    // vectorInsertarEnPos(&vec, 92, 5);
-
-    // vectorOrdEliminar(&vec, 5);
-    // vectorEliminarDePos(&vec, 3);
-
-    //mostrarVector(&vec);
-
-    Empleado empl;
-
+    puts("Antes:");
+    vectorMostrar(&miVec, imprimirEmpleado);
 
     float porcIncrSueldo = 10;
 
-    vectorRecorrer(&vec, incrSueldoEmpl, &porcIncrSueldo);
+    //vectorRecorrer(&miVec, incrSueldoEmpl, &porcIncrSueldo);
 
-    vectorMostrar(&vec, imprimirEmpl);
+    puts("Despues:");
+    //vectorMostrar(&miVec, imprimirEmpleado);
 
-    vectorDestruir(&vec);
+    VectorIterador it;
+    vectorIteradorCrear(&it, &miVec);
+
+    Empleado* pEmpl = vectorIteradorPrimero(&it);
+
+    while (!vectorIteradorFin(&it)) {
+        printf("%8d %-20s %11.2f\n", pEmpl->legajo, pEmpl->apynom, pEmpl->sueldo);
+        pEmpl = vectorIteradorSiguiente(&it);
+    }
+
+    vectorDestruir(&miVec);
 
     return 0;
 }
 
-int compararInt (const void* a, const void* b) {
-    int* elem1 = (int*) a;
-    int* elem2 = (int*) b;
 
-    return *elem1 - *elem2;
+// void printVector(int* vec, size_t ce)
+// {
+// //    size_t tamVec = sizeof(vec);
+// //    printf("printVector(): Tam Vec en bytes: %Iu\n", tamVec);
+
+//     int* ult = vec + ce - 1;
+
+//     for(int* i = vec; i <= ult; i++)
+//     {
+//         printf("%d ", *i);
+//     }
+
+//     putchar('\n');
+// }
+
+
+void imprimirInt(const void* a)
+{
+    const int* entero = a;
+    printf("%3d", *entero);
 }
 
-void imprimirInt (const void* elem) {
-    int* elemInt = (int*) elem;
-    printf("%3d", *elemInt);
+
+void imprimirFecha(const void* a)
+{
+    const Fecha* f = a;
+    printf("%02d/%02d/%4d\n", f->d, f->m, f->a);
 }
 
-void incrSueldoEmpl (void* elem, void* datos) {
-    // Empleado empl = elem;
-    // float* porcIncrSueldo = (float*) datos;
-    // empl -> sueldo = empl -> sueldo + empl -> sueldo * porcIncrSueldo / 100;
+
+void imprimirEmpleado(const void* a)
+{
+    const Empleado* empl = a;
+    printf("%8d %-20s %11.2f\n", empl->legajo, empl->apynom, empl->sueldo);
+}
+
+
+int cmpFechas(const void* a, const void* b)
+{
+    const Fecha* f1 = a;
+    const Fecha* f2 = b;
+    return (f1->a * 10000 + f1->m * 100 + f1->d) - (f2->a * 10000 + f2->m * 100 + f2->d);
+}
+
+
+int cmpEmpl(const void* a, const void* b)
+{
+    const Empleado* e1 = a;
+    const Empleado* e2 = b;
+    return e1->legajo - e2->legajo;
+}
+
+
+void incrSueldoEmpl(void* elem, void* datos)
+{
+    Empleado* empl = elem;
+    float porcIncrSueldo = *(float*)datos;
+    empl->sueldo = empl->sueldo + empl->sueldo * porcIncrSueldo / 100;
 }
