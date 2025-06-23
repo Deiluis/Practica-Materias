@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1750720319 source:c:\users\estudiante\desktop\facultad\materias-programacion\tp\practica\practicamain\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<stddef.h>
+	"../TDAFecha/Fecha.h"
+
+1750719404 c:\users\estudiante\desktop\facultad\materias-programacion\tp\practica\tdafecha\fecha.h
+	<stdbool.h>
+	<stddef.h>
+
