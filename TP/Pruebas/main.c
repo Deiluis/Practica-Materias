@@ -45,6 +45,16 @@ void trasponerMatriz (int fOrig, int cOrig, int trasp[cOrig][fOrig], int orig[][
 
 int main () {
 
+    int a = 2048;
+    char* p = (char*) &a;
+
+    p += 1;
+
+    printf("Direccion de a: %p\n", &a);
+    printf("Direccion del 2do byte de a: %p\n", p);
+    printf("Valor de p: %d\n", *p);
+
+
     // int mtx[][COLUMNAS] = {
     //     {1, 2, 3, 4},
     //     {5, 6, 7, 8},
@@ -52,38 +62,38 @@ int main () {
     //     {13, 14, 15, 16},
     // };
 
-    //int (*mtx)[ORDEN] = malloc(sizeof(int) * ORDEN * ORDEN);
+    // int (*mtx)[ORDEN] = malloc(sizeof(int) * ORDEN * ORDEN);
 
-    int** mtx = (int**) crearMatriz(sizeof(int), ORDEN, ORDEN);
+    // int** mtx = (int**) crearMatriz(sizeof(int), ORDEN, ORDEN);
 
-    if (mtx == NULL)
-        return -1;
+    // if (mtx == NULL)
+    //     return -1;
 
-    inicializarMatriz(FILAS, COLUMNAS, mtx);
+    // inicializarMatriz(FILAS, COLUMNAS, mtx);
 
-    printf("Matriz:\n");
-    mostrarMatriz(FILAS, COLUMNAS, mtx);
-    printf("\nDiagonal principal:\n");
-    mostrarDPrincipal(ORDEN, mtx);
-    printf("\nDiagonal secundaria:\n");
-    mostrarDSecundaria(ORDEN, mtx);
+    // printf("Matriz:\n");
+    // mostrarMatriz(FILAS, COLUMNAS, mtx);
+    // printf("\nDiagonal principal:\n");
+    // mostrarDPrincipal(ORDEN, mtx);
+    // printf("\nDiagonal secundaria:\n");
+    // mostrarDSecundaria(ORDEN, mtx);
 
-    printf("\nSuma d. principal: %d", sumaDPrincipal(ORDEN, mtx));
-    printf("\n");
+    // printf("\nSuma d. principal: %d", sumaDPrincipal(ORDEN, mtx));
+    // printf("\n");
 
-    printf("\nSuma triangular superior d. principal: %d", sumaTriangularSuperiorDPrincipal(ORDEN, mtx));
-    printf("\nSuma triangular inferior d. principal: %d", sumaTriangularInferiorDPrincipal(ORDEN, mtx));
-    printf("\nSuma triangular superior d. secundaria: %d", sumaTriangularSuperiorDSecundaria(ORDEN, mtx));
-    printf("\nSuma triangular inferior d. secundaria: %d", sumaTriangularInferiorDSecundaria(ORDEN, mtx));
-    printf("\n");
+    // printf("\nSuma triangular superior d. principal: %d", sumaTriangularSuperiorDPrincipal(ORDEN, mtx));
+    // printf("\nSuma triangular inferior d. principal: %d", sumaTriangularInferiorDPrincipal(ORDEN, mtx));
+    // printf("\nSuma triangular superior d. secundaria: %d", sumaTriangularSuperiorDSecundaria(ORDEN, mtx));
+    // printf("\nSuma triangular inferior d. secundaria: %d", sumaTriangularInferiorDSecundaria(ORDEN, mtx));
+    // printf("\n");
 
-    printf("\nEs matriz diagonal? %s\n", esMatrizDiagonal(ORDEN, mtx) ? "Si" : "No");
-    printf("\n");
+    // printf("\nEs matriz diagonal? %s\n", esMatrizDiagonal(ORDEN, mtx) ? "Si" : "No");
+    // printf("\n");
 
-    trasponerCuadInSitu(ORDEN, mtx);
-    
-    printf("Matriz:\n");
-    mostrarMatriz(FILAS, COLUMNAS, mtx);
+    // trasponerCuadInSitu(ORDEN, mtx);
+
+    // printf("Matriz:\n");
+    // mostrarMatriz(FILAS, COLUMNAS, mtx);
 
     return 0;
 }
@@ -109,7 +119,7 @@ void** crearMatriz (size_t tamElem, int filas, int columnas) {
             mallocOk = false;
             mtx = NULL;
         }
-    
+
         i++;
     }
 

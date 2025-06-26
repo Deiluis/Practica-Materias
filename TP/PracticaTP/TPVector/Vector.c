@@ -45,7 +45,7 @@ int vectorCargarDeTxt (Vector* v, const char* nomArchTxt, Fmt formatear, size_t 
         fclose(archTxt);
         return SIN_MEM;
     }
-    
+
     reg = malloc(v -> tamElem);
 
     if (!reg) {

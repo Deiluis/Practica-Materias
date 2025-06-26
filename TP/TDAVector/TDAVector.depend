@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1749097326 source:e:\programacion\c\materias-programacion\tp\tdavector\vector.c
+1750895226 source:e:\programacion\c\materias-programacion\tp\tdavector\vector.c
 	<stdbool.h>
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"Vector.h"
 
-1749096083 e:\programacion\c\materias-programacion\tp\tdavector\vector.h
+1750809979 e:\programacion\c\materias-programacion\tp\tdavector\vector.h
 	<stddef.h>
 	<stdbool.h>
+	"../Comun/CodigosRet.h"
 
 1749733912 source:c:\users\estudiante\desktop\facultad\materias-programacion\tp\tdavector\vector.c
 	<stdbool.h>
@@ -23,4 +24,6 @@
 	"../Comun/CodigosRet.h"
 
 1749732984 c:\users\estudiante\desktop\facultad\materias-programacion\tp\comun\codigosret.h
+
+1750810704 e:\programacion\c\materias-programacion\tp\comun\codigosret.h
 

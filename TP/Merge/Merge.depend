@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1750341033 source:c:\unlam\cursadas\2025\1\06-4300\proyectos\merge\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

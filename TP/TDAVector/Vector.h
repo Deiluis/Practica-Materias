@@ -19,6 +19,7 @@
 #define SELECCION 2
 #define SELECCION_DOBLE 3
 #define INSERCION 4
+#define QUICK_SORT 5
 
 typedef struct
 {
@@ -47,6 +48,7 @@ int vectorOrdInsertar(Vector* v, void* elem, Cmp cmp);
 int vectorInsertarAlInicio(Vector* v, void* elem, Cmp cmp);
 int vectorInsertarAlFinal(Vector* v, void* elem);
 int vectorInsertarEnPos(Vector* v, void* elem, int pos, Cmp cmp);
+int vectorModificarDePos (Vector* v, int pos, void* elem);
 int vectorOrdBuscar(const Vector* v, void* elem, Cmp cmp);
 int vectorDesordBuscar(const Vector* v, void* elem, Cmp cmp);
 bool vectorOrdEliminar (Vector* v, void* elem, Cmp cmp);

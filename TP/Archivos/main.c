@@ -8,6 +8,9 @@
 #define ARG_ARCH 1
 #define ARG_PORC 2
 #define ARG_COD 3
+#define CANT_ARG 4
+
+#define ARG_FALTANTES 1
 
 typedef struct {
     char codigo[11];
@@ -34,6 +37,9 @@ void cambiarExtension(const char* nomArch, const char* ext, char* nomArchCambiad
 // Archivos.exe Productos.dat 10 UVA
 int main(int argc, char* argv[])
 {
+    if (argc != CANT_ARG)
+        return ARG_FALTANTES;
+
     generarProductosBin(argv[ARG_ARCH]);
     generarProductosIdx(argv[ARG_ARCH]);
 

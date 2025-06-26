@@ -10,3 +10,15 @@
 	<stdbool.h>
 	<stddef.h>
 
+1750727853 source:e:\programacion\c\materias-programacion\tp\practica\practicamain\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<stddef.h>
+	<string.h>
+	"../TDAFecha/Fecha.h"
+
+1750721390 e:\programacion\c\materias-programacion\tp\practica\tdafecha\fecha.h
+	<stdbool.h>
+	<stddef.h>
+

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <string.h>
 #include "../TDAFecha/Fecha.h"
 
 size_t longitudStr (const char* str);
@@ -10,30 +11,33 @@ char aMayuscula (char c);
 
 int main () {
 
-    Fecha f1, f2;
+    int tam = 10;
 
-    // char* diasSemana[] = { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo" };
+    char str1[tam +1];
+    char str2[] = "Hola que tal me llamo Luis";
 
-    if (!fechaAsignar(&f1, 23, 6, 2025))
-        printf("Fecha 1 invalida");
+    strncpy(str1, str2, tam);
 
-    if (!fechaAsignar(&f2, 2, 8, 2023))
-        printf("Fecha invalida");
+    str1[10] = '\0';
 
-    // int dia = fechaDiaDeLaSemana(&f1);
-    // char* nombreDia = diasSemana;
+    char* pos = strstr(str1, "que");
 
-    int dia, mes, anio;
+    printf("%s\n", str1);
+    printf("%Iu\n", strlen(str1));
 
-    fechaObtenerCampos(&f1, &dia, &mes, &anio);
+    if (pos)
+        printf("%d\n", (int) (pos - str1));
 
-    // printf("%02d/%02d/%4d", dia, mes, anio);
 
-    printf("%d", fechaDiaDelAnio(&f1));
+    char* pal;
 
-    // fechaSumarDias(&f1, 10);
+    pal = strtok(str2, " ");
+    pal = strtok(str1, " ");
 
-    // fechaMostrar(&f1, mostrarFecha);
+    while (pal) {
+        printf("%s\n", pal);
+        pal = strtok(NULL, " ");
+    }
 
     return 0;
 }
