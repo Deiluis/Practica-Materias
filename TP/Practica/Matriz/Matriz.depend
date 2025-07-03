@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1751518722 source:e:\programacion\c\materias-programacion\tp\practica\matriz\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdbool.h>
+

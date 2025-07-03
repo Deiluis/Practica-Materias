@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1751509243 source:e:\programacion\c\materias-programacion\tp\practica\merge\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+

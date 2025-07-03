@@ -79,10 +79,13 @@ int main()
 
 
     Vector vec;
+    VectorIterador it;
 
     vectorCrear(&vec, sizeof(int));
+    vectorIteradorCrear(&it, &vec);
 
     int elem;
+    int* elemP;
 
     srand(time(NULL));
 
@@ -91,11 +94,17 @@ int main()
         vectorInsertarAlFinal(&vec, &elem);
     }
 
+    vectorMostrar(&vec, imprimirInt);
+    printf("\n");
 
+    elemP = vectorIteradorPrimero(&it);
 
-    //vectorOrdenar(&vec, INSERCION, compararInt);
+    while (!vectorIteradorFin(&it)) {
+        *(elemP) += 1;
+        elemP = vectorIteradorSiguiente(&it);
+    }
 
-    qsort(vec.vec, vec.tam, vec.tamElem, compararInt);
+    printf("\n");
 
     vectorMostrar(&vec, imprimirInt);
 

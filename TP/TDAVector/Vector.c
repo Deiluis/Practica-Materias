@@ -606,8 +606,8 @@ size_t max (size_t a, size_t b) {
 void vectorIteradorCrear (VectorIterador* it, const Vector* v) {
     it -> act = NULL;
     it -> ult = NULL;
-    it -> finIter = true;
     it -> vector = (Vector*) v;
+    it -> finIter = true;
 }
 
 void* vectorIteradorPrimero (VectorIterador* it) {
@@ -628,7 +628,6 @@ void* vectorIteradorPrimero (VectorIterador* it) {
 }
 
 void* vectorIteradorSiguiente (VectorIterador* it) {
-
     Vector* v = it -> vector;
 
     void* siguiente = it -> act + v -> tamElem;
@@ -640,9 +639,54 @@ void* vectorIteradorSiguiente (VectorIterador* it) {
 
     it -> act = siguiente;
 
-    return siguiente;
+    return it -> act;
 }
 
 bool vectorIteradorFin (VectorIterador* it) {
     return it -> finIter;
 }
+
+
+// void vectorIteradorCrear (VectorIterador* it, const Vector* v) {
+//     it -> act = NULL;
+//     it -> ult = NULL;
+//     it -> finIter = true;
+//     it -> vector = (Vector*) v;
+// }
+
+// void* vectorIteradorPrimero (VectorIterador* it) {
+//     Vector* v = it -> vector;
+
+//     if (v -> tam == 0) {
+//         it -> act = NULL;
+//         it -> ult = NULL;
+//         it -> finIter = true;
+//         return NULL;
+//     }
+
+//     it -> act = v -> vec;
+//     it -> ult = v -> vec + (v -> tam -1) * v -> tamElem;
+//     it -> finIter = false;
+
+//     return it -> act;
+// }
+
+// void* vectorIteradorSiguiente (VectorIterador* it) {
+
+//     Vector* v = it -> vector;
+
+//     void* siguiente = it -> act + v -> tamElem;
+
+//     if (siguiente > it -> ult) {
+//         it -> finIter = true;
+//         return NULL;
+//     }
+
+//     it -> act = siguiente;
+
+//     return siguiente;
+// }
+
+// bool vectorIteradorFin (VectorIterador* it) {
+//     return it -> finIter;
+// }

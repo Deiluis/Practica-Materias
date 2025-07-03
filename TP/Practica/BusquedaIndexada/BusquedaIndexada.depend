@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1751467527 source:e:\programacion\c\materias-programacion\tp\practica\busquedaindexada\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../../TDAVector/Vector.h"
+
+1750895947 e:\programacion\c\materias-programacion\tp\tdavector\vector.h
+	<stddef.h>
+	<stdbool.h>
+	"../Comun/CodigosRet.h"
+
+1750810704 e:\programacion\c\materias-programacion\tp\comun\codigosret.h
+
