@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1751554883 source:c:\users\laboratorios\onedrive - universidad nacional de la matanza\escritorio\topicos\entregable\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<Comun.h>
+	<Cadena.h>
+	<Vector.h>
+	<Archivo.h>
+	<SolucionParcialFabricasComputadorasTopicos.h>
+
+1750423448 c:\users\laboratorios\onedrive - universidad nacional de la matanza\escritorio\topicos\entregable\include\comun.h
+
+1750423448 c:\users\laboratorios\onedrive - universidad nacional de la matanza\escritorio\topicos\entregable\include\cadena.h
+	<stddef.h>
+	<stdbool.h>
+
+1751317186 c:\users\laboratorios\onedrive - universidad nacional de la matanza\escritorio\topicos\entregable\include\vector.h
+	<stddef.h>
+	<stdbool.h>
+	<Comun.h>
+
+1750423448 c:\users\laboratorios\onedrive - universidad nacional de la matanza\escritorio\topicos\entregable\include\archivo.h
+	<stddef.h>
+
+1750423448 c:\users\laboratorios\onedrive - universidad nacional de la matanza\escritorio\topicos\entregable\include\solucionparcialfabricascomputadorastopicos.h
+
+1751562897 source:c:\users\usuario\desktop\topicos\entregable\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<Comun.h>
+	<Cadena.h>
+	<Vector.h>
+	<Archivo.h>
+	<SolucionParcialFabricasComputadorasTopicos.h>
+
+1750423448 c:\users\usuario\desktop\topicos\entregable\include\comun.h
+
+1750423448 c:\users\usuario\desktop\topicos\entregable\include\cadena.h
+	<stddef.h>
+	<stdbool.h>
+
+1751317186 c:\users\usuario\desktop\topicos\entregable\include\vector.h
+	<stddef.h>
+	<stdbool.h>
+	<Comun.h>
+
+1750423448 c:\users\usuario\desktop\topicos\entregable\include\archivo.h
+	<stddef.h>
+
+1750423448 c:\users\usuario\desktop\topicos\entregable\include\solucionparcialfabricascomputadorastopicos.h
+

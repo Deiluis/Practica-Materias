@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1750944012 source:c:\tp\tp-topicos-de-programacion\tppalabra\palabra.c
+	"Palabra.h"
+
+1750943499 source:c:\tp\tp-topicos-de-programacion\tppalabra\secuenciapalabras.c
+	"SecuenciaPalabra.h"
+
+1750943499 c:\tp\tp-topicos-de-programacion\tppalabra\secuenciapalabra.h
+	"../TPComun/TPComun.h"
+	"../TPString/string.h"
+	"Palabra.h"
+
+1750938932 c:\tp\tp-topicos-de-programacion\tpcomun\tpcomun.h
+
+1750944631 c:\tp\tp-topicos-de-programacion\tpstring\string.h
+	"../TPComun/TPComun.h"
+	<stddef.h>
+
+1750944390 c:\tp\tp-topicos-de-programacion\tppalabra\palabra.h
+
