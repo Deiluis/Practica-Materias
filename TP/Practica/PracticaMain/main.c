@@ -11,33 +11,38 @@ char aMayuscula (char c);
 
 int main () {
 
-    int tam = 10;
+    char** ptr;
+    double num = strtod("2.3", ptr);
 
-    char str1[tam +1];
-    char str2[] = "Hola que tal me llamo Luis";
+    printf("%f", num);
 
-    strncpy(str1, str2, tam);
+    // int tam = 10;
 
-    str1[10] = '\0';
+    // char str1[tam +1];
+    // char str2[] = "Hola que tal me llamo Luis";
 
-    char* pos = strstr(str1, "que");
+    // strncpy(str1, str2, tam);
 
-    printf("%s\n", str1);
-    printf("%Iu\n", strlen(str1));
+    // str1[10] = '\0';
 
-    if (pos)
-        printf("%d\n", (int) (pos - str1));
+    // char* pos = strstr(str1, "que");
+
+    // printf("%s\n", str1);
+    // printf("%Iu\n", strlen(str1));
+
+    // if (pos)
+    //     printf("%d\n", (int) (pos - str1));
 
 
-    char* pal;
+    // char* pal;
 
-    pal = strtok(str2, " ");
-    pal = strtok(str1, " ");
+    // pal = strtok(str2, " ");
+    // pal = strtok(str1, " ");
 
-    while (pal) {
-        printf("%s\n", pal);
-        pal = strtok(NULL, " ");
-    }
+    // while (pal) {
+    //     printf("%s\n", pal);
+    //     pal = strtok(NULL, " ");
+    // }
 
     return 0;
 }

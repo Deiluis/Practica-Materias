@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1755706852 source:c:\users\estudiante\desktop\facultad\materias-programacion\tp\practica\tdapila\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TDAPila.h"
+
+1755706162 c:\users\estudiante\desktop\facultad\materias-programacion\tp\practica\tdapila\tdapila.h
+	<stddef.h>
+
+1755706152 source:c:\users\estudiante\desktop\facultad\materias-programacion\tp\practica\tdapila\tdapila.c
+	"TDAPila.h"
+	<string.h>
+
