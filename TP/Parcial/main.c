@@ -63,7 +63,7 @@ int vectorCargarDeBin_ALU (Vector* v, size_t tamElem, const char* nomArch);
 void vectorMostrar_ALU (Vector* v, Imp_ALU imp);
 int vectorOrdenar_ALU (Vector* v, Cmp_ALU cmp);
 int vectorGuardarEnBin_ALU (Vector* v, const char* nomArch);
-void vectorElimDup_ALU (Vector* v, Cmp_ALU cmp, Act_ALU act);
+void vectorOrdElimDup_ALU (Vector* v, Cmp_ALU cmp, Act_ALU act);
 void vectorEliminarDePos_ALU (Vector* v, int pos);
 void vectorDestruir_ALU (Vector* v);
 
@@ -71,7 +71,6 @@ void vectorDestruir_ALU (Vector* v);
 // Auxiliares
 void* buscarMenor_ALU (void* ini, void* fin, size_t tamElem, Cmp_ALU cmp);
 void intercambiar_ALU (void* elem1, void* elem2, void* aux, size_t tamElem);
-int buscarVectorDesordEntre_ALU (Vector* v, void* ini, void* fin, void* elem, Cmp_ALU cmp);
 
 int main()
 {
@@ -235,11 +234,11 @@ int procesarArchivos_ALU(
     if (cod != TODO_OK)
         return cod;
 
-    vectorOrdEliminarDuplicados(&vProdsFus, compararProds_ALU, actualizarProductos_ALU);
-    vectorOrdEliminarDuplicados(&vClientesFus, compararClientes_ALU, NULL);
+    //vectorOrdEliminarDuplicados(&vProdsFus, compararProds_ALU, actualizarProductos_ALU);
+    //vectorOrdEliminarDuplicados(&vClientesFus, compararClientes_ALU, NULL);
 
-    //vectorElimDup_ALU(&vProdsFus, compararProds_ALU, actualizarProductos_ALU);
-    //vectorElimDup_ALU(&vClientesFus, compararClientes_ALU, NULL);
+    vectorOrdElimDup_ALU(&vProdsFus, compararProds_ALU, actualizarProductos_ALU);
+    vectorOrdElimDup_ALU(&vClientesFus, compararClientes_ALU, NULL);
 
     cod = vectorGuardarEnBin_ALU(&vProdsFus, nombreArchivoProductosFus);
 
@@ -521,26 +520,30 @@ int vectorGuardarEnBin_ALU (Vector* v, const char* nomArch) {
     return TODO_OK;
 }
 
-void vectorElimDup_ALU (Vector* v, Cmp_ALU cmp, Act_ALU act) {
+void vectorOrdElimDup_ALU (Vector* v, Cmp_ALU cmp, Act_ALU act) {
 
-    void* i;
+    void* i = v -> vec;
     void* ult = v -> vec + (v -> ce -1) * v -> tamElem;
     int pos;
     void* dup;
 
+    while (i < ult) {
 
-    for (i = v -> vec; i < ult; i += v -> tamElem) {
+        if (cmp(i, i + v -> tamElem) == 0) {
 
-        pos = buscarVectorDesordEntre_ALU(v, i + v -> tamElem, ult, i, cmp);
-
-        if (pos != -1) {
-            dup = v -> vec + pos * v -> tamElem;
+            dup = i + v -> tamElem;
 
             if (act)
                 act(i, dup);
 
+            pos = (dup - v -> vec) / v -> tamElem;
+
             vectorEliminarDePos_ALU(v, pos);
-        }
+
+            ult -= v -> tamElem;
+
+        } else
+            i += v -> tamElem;
     }
 }
 
@@ -551,8 +554,9 @@ void vectorEliminarDePos_ALU (Vector* v, int pos) {
         void* posElim = v -> vec + pos * v -> tamElem;
         void* fin = v -> vec + v -> ce * v -> tamElem;
 
-        memmove(posElim, posElim + v -> tamElem, fin - posElim);
+        void* posSiguiente = posElim + v -> tamElem;
 
+        memmove(posElim, posSiguiente, fin - posSiguiente);
         v -> ce--;
     }
 }
@@ -584,27 +588,4 @@ void intercambiar_ALU (void* elem1, void* elem2, void* aux, size_t tamElem) {
     memcpy(aux, elem1, tamElem);
     memcpy(elem1, elem2, tamElem);
     memcpy(elem2, aux, tamElem);
-}
-
-int buscarVectorDesordEntre_ALU (Vector* v, void* ini, void* fin, void* elem, Cmp_ALU cmp) {
-
-    void* ult = v -> vec + (v -> ce -1) * v -> tamElem;
-
-    if (ini > fin || ini < v -> vec || fin > ult)
-        return -1;
-
-    int pos = -1;
-    void* i = ini;
-
-    while (pos == -1 && i <= fin) {
-        if (cmp(i, elem) == 0)
-            pos = (i - v -> vec) / v -> tamElem;
-        else
-            i += v -> tamElem;
-    }
-
-    if (pos != -1)
-        memcpy(elem, i, v -> tamElem);
-
-    return pos;
 }
