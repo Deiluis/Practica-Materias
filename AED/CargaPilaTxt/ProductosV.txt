@@ -1,0 +1,10 @@
+BANA|Banana|2200.5|7
+PERA|Pera|1800.0|5
+MANZ|Manzana|2000.0|6
+KIWI|Kiwi|2500.5|3
+UVA|Uvas|3000.0|10
+MELN|Melon|2700.3|2
+DURZ|Durazno|2100.9|4
+CIRU|Ciruela|2300.0|8
+NARA|Naranja|1900.2|6
+LIMN|Limon|1600.7|9

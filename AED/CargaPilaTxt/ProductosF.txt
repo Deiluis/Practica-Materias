@@ -1,0 +1,10 @@
+BANABananas        2200.5007
+PERAPera           1800.0005
+MANZManzana        2000.0006
+KIWIKiwi           2500.5003
+UVA Uvas           3000.0010
+MELNMelon          2700.3002
+DURZDurazno        2100.9004
+CIRUCiruela        2300.0008
+NARANaranja        1900.2006
+LIMNLimon          1600.7009

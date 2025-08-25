@@ -11,3 +11,14 @@
 	"TDAPila.h"
 	<string.h>
 
+1755913212 source:d:\facultad\practica-materias\aed\tdapila\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TDAPila.h"
+
+1755913383 d:\facultad\practica-materias\aed\tdapila\tdapila.h
+
+1755908917 source:d:\facultad\practica-materias\aed\tdapila\tdapila.c
+	"TDAPila.h"
+	<string.h>
+
