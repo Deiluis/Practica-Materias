@@ -26,9 +26,9 @@ bool apilar (tPila* pila, const void* elem, size_t tamElem) {
             return false;
     }
 
-    memcpy(pila -> cont + pila -> tope, elem, tamElem);
+    memcpy(((char*) pila -> cont) + pila -> tope, elem, tamElem);
     pila -> tope += tamElem;
-    memcpy(pila -> cont + pila -> tope, &tamElem, sizeof(unsigned int));
+    memcpy(((char*) pila -> cont) + pila -> tope, &tamElem, sizeof(unsigned int));
     pila -> tope += sizeof(unsigned int);
 
     return true;
@@ -43,12 +43,12 @@ bool verTope (tPila* pila, void* elem, size_t tamElem) {
 
     memcpy(
         &tamEnPila,
-        pila -> cont + pila -> tope - sizeof(unsigned int),
+        ((char*) pila -> cont) + pila -> tope - sizeof(unsigned int),
         sizeof(unsigned int)
     );
     memcpy(
         elem,
-        pila -> cont + pila -> tope - sizeof(unsigned int) - tamEnPila,
+        ((char*) pila -> cont) + pila -> tope - sizeof(unsigned int) - tamEnPila,
         MIN(tamEnPila, tamElem)
     );
 
@@ -61,11 +61,11 @@ bool desapilar (tPila* pila, void* elem, size_t tamElem) {
 
     if (pila -> tope == 0)
         return false;
-    
+
     pila -> tope -= sizeof(unsigned int);
-    memcpy(&tamEnPila, pila -> cont + pila -> tope, sizeof(unsigned int));
+    memcpy(&tamEnPila, ((char*) pila -> cont) + pila -> tope, sizeof(unsigned int));
     pila -> tope -= tamEnPila;
-    memcpy(elem, pila -> cont + pila -> tope, MIN(tamEnPila, tamElem));
+    memcpy(elem, ((char*) pila -> cont) + pila -> tope, MIN(tamEnPila, tamElem));
 
     if (pila -> tope != 0 && (float) pila -> tope / pila -> cap <= FACTOR_OCUP)
         redimensionarPila(pila, DECREMENTAR, 0);
@@ -95,7 +95,12 @@ void destruirPila (tPila* pila) {
 
 bool redimensionarPila (tPila* pila, int operacion, size_t tamElem) {
 
-    // Por lo que necesita minimo de espacio o por factor de incremento?
+    /*
+     * La redimensión podría resolverse de dos formas:
+     * 1. Solicitando la cantidad de espacio necesaria para almacenar al elemento a añadir, sin importar el espacio libre que ya exista.
+     * 2. Tomando el espacio libre que ya existe, solo se solicita el espacio restante para poder almacenar el elemento, quedando sin espacio libre.
+     * En este caso, elegimos la opción 1, la cual permitiría seguir añadiendo elementos en el espacio libre sobrante sin necesidad de otro realloc.
+    */
     size_t nuevaCap = operacion == INCREMENTAR
     ? pila -> tope + tamElem + sizeof(unsigned int)
     : MAX(CAP_INI, pila -> cap * FACTOR_DECR);

@@ -8,6 +8,7 @@
 #define INCREMENTAR 0
 #define DECREMENTAR 1
 
+// Para más claridad.
 #define bool int
 #define true 1
 #define false 0
@@ -31,6 +32,5 @@ void vaciarPila (tPila* pila);
 bool pilaVacia (const tPila* pila);
 bool pilaLlena (const tPila* pila, size_t tamElem);
 void destruirPila (tPila* pila);
-
 
 #endif // PILA_H_INCLUDED

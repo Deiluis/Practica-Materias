@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1756156436 source:d:\facultad\practica-materias\aed\cargapilabin\main.c
+1756502221 source:d:\facultad\practica-materias\aed\cargapilabin\main.c
 	<stdio.h>
 	<stdlib.h>
 	"../Pila/Pila.h"
 
-1755922703 d:\facultad\practica-materias\aed\pila\pila.h
+1756501727 d:\facultad\practica-materias\aed\pila\pila.h
 	<stddef.h>
 

@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1756870477 source:d:\facultad\practica-materias\aed\tdacola\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TDACola.h"
+
+1756869711 d:\facultad\practica-materias\aed\tdacola\tdacola.h
+
+1756870432 source:d:\facultad\practica-materias\aed\tdacola\tdacola.c
+	"./TDACola.h"
+	<string.h>
+

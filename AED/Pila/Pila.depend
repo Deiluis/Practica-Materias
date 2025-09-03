@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1755922575 source:d:\facultad\practica-materias\aed\pila\pila.c
+1756502869 source:d:\facultad\practica-materias\aed\pila\pila.c
 	"Pila.h"
 	<stdlib.h>
 	<string.h>
 	<stdio.h>
 
-1755922703 d:\facultad\practica-materias\aed\pila\pila.h
+1756501727 d:\facultad\practica-materias\aed\pila\pila.h
 	<stddef.h>
 
