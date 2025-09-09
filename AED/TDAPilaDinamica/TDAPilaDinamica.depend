@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1740933564 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\tdapiladinamica\main.c
+
+1756905333 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\tdapiladinamica\pila.c
+	"Pila.h"
+	<string.h>
+	<stdlib.h>
+
+1756905660 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdapiladinamica\pila.h
+	<stddef.h>
+

@@ -6,3 +6,14 @@
 1756501727 d:\facultad\practica-materias\aed\pila\pila.h
 	<stddef.h>
 
+1756915652 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\prueba\main.c
+	<stdio.h>
+	<stdlib.h>
+	"../TDAColaDinamica/Cola.h"
+
+1756906129 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdapiladinamica\pila.h
+	<stddef.h>
+
+1756915101 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdacoladinamica\cola.h
+	<stddef.h>
+

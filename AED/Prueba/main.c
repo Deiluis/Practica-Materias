@@ -1,30 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-int parsearEntero(const char* str);
+// #include "../TDAPilaDinamica/Pila.h"
+#include "../TDAColaDinamica/Cola.h"
 
 int main () {
 
-    char pal[] = "12345";
-    int parseado;
+    // tPila pila;
+    tCola cola;
 
-    parseado = parsearEntero(pal);
+    int nums[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int dato;
+    int* i;
+    bool memLibre = true;
 
-    printf("Parseado: %d", parseado);
+    crearCola(&cola);
 
-    return 0;
-}
+    i = nums;
+    memLibre = ponerEnCola(&cola, i, sizeof(int));
+    i++;
 
-int parsearEntero(const char* str) {
-
-    char* c = (char*) str;
-    int res = 0, dig;
-
-    while (*c != '\0') {
-        dig = *c - '0';
-        res = res * 10 + dig;
-        c++;
+    while (memLibre && i < nums + (sizeof(nums) / sizeof(int))) {
+        memLibre = ponerEnCola(&cola, i, sizeof(int));
+        i++;
     }
 
-    return res;
+    if (!memLibre) {
+        vaciarCola(&cola);
+        printf("Memoria insuficiente");
+    }
+
+    while (sacarDeCola(&cola, &dato, sizeof(int)))
+        printf("%d\n", dato);
+
+    if (verPrimero(&cola, &dato, sizeof(dato)))
+        printf("primero: %d\n", dato);
+    else
+        printf("cola vacia");
+
+//    crearPila(&pila);
+//
+//    for (i = nums; i < nums + (sizeof(nums) / sizeof(int)); i++) {
+//        if (!apilar(&pila, i, sizeof(*i))) {
+//            printf("Memoria insuficiente");
+//            // Dejar de apilar y liberar
+//        }
+//    }
+//
+//    vaciarPila(&pila);
+//
+//    i = nums;
+//
+//    while (i < nums + (sizeof(nums) / sizeof(int)) && desapilar(&pila, &dato, sizeof(dato))) {
+//        printf("%d\n", dato);
+//        i++;
+//    }
+//
+//    if (verTope(&pila, &dato, sizeof(dato)))
+//        printf("Tope: %d\n", dato);
+//    else
+//        printf("Pila vacia");
+
+
+    return 0;
 }

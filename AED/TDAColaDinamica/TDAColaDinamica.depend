@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1740933564 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\tdacoladinamica\main.c
+
+1756909601 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\tdacoladinamica\cola.c
+	"Cola.h"
+	<string.h>
+	<stdlib.h>
+
+1756909249 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdacoladinamica\cola.h
+	<stddef.h>
+
