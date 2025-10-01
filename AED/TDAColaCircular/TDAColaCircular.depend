@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1759277027 source:d:\facultad\practica-materias\aed\tdacolacircular\cola.c
+	"./Cola.h"
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+
+1759277020 d:\facultad\practica-materias\aed\tdacolacircular\cola.h
+

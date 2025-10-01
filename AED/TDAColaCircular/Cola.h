@@ -1,8 +1,6 @@
 #ifndef COLA_H_INCLUDED
 #define COLA_H_INCLUDED
 
-#include <stddef.h>
-
 #define MIN(a,b) ((a)<(b)?(a):(b))
 
 #define true 1
@@ -16,18 +14,14 @@ typedef struct sNodo {
     struct sNodo* sig;
 } tNodo;
 
-typedef struct {
-    tNodo* pri;
-    tNodo* ult;
-} tCola;
+typedef tNodo* tCola;
 
 void crearCola(tCola* c);
-bool ponerEnCola(tCola* c, const void* info, unsigned cantB);
-bool sacarDeCola(tCola* c, void* info, unsigned cantB);
-bool verPriDeCola(const tCola* c, void* info, unsigned cantB);
+bool ponerEnCola(tCola* c, const void* info, unsigned tamInfo);
+bool verPriDeCola(const tCola* c, void* info, unsigned tamInfo);
+bool sacarDeCola(tCola* c, void* info, unsigned tamInfo);
 void vaciarCola(tCola* c);
 bool colaVacia(const tCola* c);
 bool colaLlena(const tCola* c);
-
 
 #endif // COLA_H_INCLUDED

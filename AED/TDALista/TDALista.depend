@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1758666349 source:d:\facultad\practica-materias\aed\tdalista\tdalista.c
+	"TDALista.h"
+	<string.h>
+	<stdlib.h>
+
+1758662892 d:\facultad\practica-materias\aed\tdalista\tdalista.h
+	<stddef.h>
+

@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1757953733 source:d:\facultad\practica-materias\aed\ejercicios\sumagrande\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../../TDAPilaDinamica/Pila.h"
+
+1757448112 d:\facultad\practica-materias\aed\tdapiladinamica\pila.h
+	<stddef.h>
+

@@ -1,7 +1,9 @@
 # depslib dependency file v1.0
-1756659299 source:d:\facultad\practica-materias\aed\prueba\main.c
+1759278692 source:d:\facultad\practica-materias\aed\prueba\main.c
 	<stdio.h>
 	<stdlib.h>
+	"../TDAColaCircular/Cola.h"
+	"../TDAPilaCircular/Pila.h"
 
 1756501727 d:\facultad\practica-materias\aed\pila\pila.h
 	<stddef.h>
@@ -16,4 +18,11 @@
 
 1756915101 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdacoladinamica\cola.h
 	<stddef.h>
+
+1757387594 d:\facultad\practica-materias\aed\tdacoladinamica\cola.h
+	<stddef.h>
+
+1759277020 d:\facultad\practica-materias\aed\tdacolacircular\cola.h
+
+1759277072 d:\facultad\practica-materias\aed\tdapilacircular\pila.h
 

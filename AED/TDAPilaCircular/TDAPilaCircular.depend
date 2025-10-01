@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1759277686 source:d:\facultad\practica-materias\aed\tdapilacircular\pila.c
+	"./Pila.h"
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+
+1759277072 d:\facultad\practica-materias\aed\tdapilacircular\pila.h
+

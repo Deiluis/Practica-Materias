@@ -38,9 +38,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Pila.h" />
-		<Unit filename="main.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

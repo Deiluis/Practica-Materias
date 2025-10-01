@@ -15,8 +15,8 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="../TDAPilaDinamica/bin/Debug/libTDAPilaDinamica.a" />
-					<Add library="../TDAColaDinamica/bin/Debug/libTDAColaDinamica.a" />
+					<Add library="../TDAColaCircular/bin/Debug/libTDAColaCircular.a" />
+					<Add library="../TDAPilaCircular/bin/Debug/libTDAPilaCircular.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">

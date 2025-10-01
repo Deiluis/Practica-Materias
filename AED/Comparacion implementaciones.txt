@@ -1,0 +1,21 @@
+Grupo: Los predicadores de Linux.
+
+Comparación entre las implementaciones de pila y cola.
+
+Principales diferencias:
+------------------------
+
+La pila siempre apunta al nodo del primer elemento ingresado, y dado que el primer nodo siempre apunta al último, apilar o desapilar se pueden resolver vinculando o desvinculando el nodo siguiente al apuntado por la pila. Es importante tener en cuenta que tanto al apilar como al desapilar, la pila queda apuntando siempre al primer nodo (o a NULL cuando termina de desapilar), no cambia su nodo apuntado.
+
+Diferente es el caso de la cola la cual apunta siempre al último nodo ingresado, y este a su vez apunta al primero. Esto resulta en que, análogamente al manejo de la pila, el encolado o desencolado se realiza siempre sobre el nodo siguiente apuntado por la cola. Para encolar, se vincula un nuevo nodo entre el nodo apuntado por la cola (el último) y su siguiente (el primero). Para desencolar, se opera con el primer nodo, el cual se sabe que es el siguiente al apuntado por la cola. Siguiendo esta línea de pensamiento, si bien al desencolar el puntero de la cola se mantiene apuntando siempre al último, al enconlar, este se mueve, apuntando al nuevo último.
+
+Similitudes:
+------------
+
+El resto de primitivas implementadas, salvando sus diferencias conceptuales, son bastante similares, ya que utilizan la misma lógica.
+
+Ejemplos: 
+1. La creación de ambas estructuras es identica, siendo que para la cola ya no se necesita una referencia al primer y último nodo por separado, pueden visualizarse con un unico puntero.
+2. Tanto ver tope en la pila como ver primero en la cola requieren obtener la información del nodo siguiente al apuntado por cada estructura.
+3. Para realizar el vaciado de ambas estructuras, pueden ir eliminandose los nodos siguientes al apuntado por cada estructura hasta eliminar el mencionado.
+4. La verificación del llenado o vaciado de cada estructura requiere exactamente la misma lógica.

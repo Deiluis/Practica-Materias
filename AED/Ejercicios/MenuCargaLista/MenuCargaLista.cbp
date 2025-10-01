@@ -2,31 +2,29 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="TDAColaDinamica" />
+		<Option title="MenuCargaLista" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/TDAColaDinamica" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
+				<Option output="bin/Debug/MenuCargaLista" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="2" />
+				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
+				<Option parameters="simp.txt comp.dat" />
 				<Compiler>
-					<Add option="-Wall" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add library="../../TDALista/bin/Debug/libTDALista.a" />
+				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/TDAColaDinamica" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
+				<Option output="bin/Release/MenuCargaLista" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="2" />
+				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-Wall" />
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
@@ -34,10 +32,14 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Unit filename="Cola.c">
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Cola.h" />
-		<Extensions />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

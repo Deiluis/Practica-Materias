@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1758668125 source:d:\facultad\practica-materias\aed\pruebalista\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"../TDALista/TDALista.h"
+
+1758662892 d:\facultad\practica-materias\aed\tdalista\tdalista.h
+	<stddef.h>
+

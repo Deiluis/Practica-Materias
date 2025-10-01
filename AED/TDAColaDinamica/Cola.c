@@ -56,7 +56,7 @@ bool sacarDeCola(tCola* c, void* info, unsigned cantB) { // Verificar que funque
     return true;
 }
 
-bool verPrimero(const tCola* c, void* info, unsigned cantB) {
+bool verPriDeCola(const tCola* c, void* info, unsigned cantB) {
 
     if (c -> pri == NULL)
         return false;
