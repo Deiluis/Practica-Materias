@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1759330085 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\tdalistad\listad.c
+	"./ListaD.h"
+	<stdlib.h>
+	<string.h>
+
+1759327842 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdalistad\listad.h
+
