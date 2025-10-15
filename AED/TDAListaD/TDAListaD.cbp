@@ -2,28 +2,31 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="PruebaLista" />
+		<Option title="TDAListaD" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/PruebaLista" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/TDAListaD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="2" />
 				<Option compiler="gcc" />
+				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-Wall" />
 					<Add option="-g" />
 				</Compiler>
-				<Linker>
-					<Add library="../TDAListaD/bin/Debug/libTDAListaD.a" />
-				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/PruebaLista" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/TDAListaD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="2" />
 				<Option compiler="gcc" />
+				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-Wall" />
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
@@ -31,12 +34,10 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Compiler>
-			<Add option="-Wall" />
-		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="ListaD.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="ListaD.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
