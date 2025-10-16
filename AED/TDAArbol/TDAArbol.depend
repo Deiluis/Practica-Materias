@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1760540568 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\tdaarbol\arbol.c
+	"./Arbol.h"
+	<stdlib.h>
+	<string.h>
+
+1760540601 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdaarbol\arbol.h
+

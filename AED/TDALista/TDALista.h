@@ -31,6 +31,7 @@ void ordenarLista(tLista* pl, Cmp cmp, int metodo);
 int buscarEnLista(tLista* pl, const void* info, Cmp cmp);
 void vaciarLista(tLista* pl);
 void mostrarLista(const tLista* pl, Imp imp);
+void mostrarListaInv(const tLista* pl, Imp imp);
 bool listaVacia(const tLista* pl);
 bool listaLlena(const tLista* pl);
 

@@ -106,10 +106,10 @@ bool ponerEnListaEnOrden(tLista* pl, const void* info, unsigned cantB, bool conD
 
         while (*pl && cBus((*pl) -> info, info) != 0)
             pl = &((*pl) -> sig);
-        
+
         // Se encontró el duplicado
         if (*pl != NULL) {
-            
+
             if (accDup == NULL)
                 return false; // Duplicado sin acción a realizar.
 
@@ -121,7 +121,7 @@ bool ponerEnListaEnOrden(tLista* pl, const void* info, unsigned cantB, bool conD
 
             return true; // Habiendo realizado la acción sobre el dupplicado.
         }
-        
+
         // Deja al puntero de la lista al inicio nuevamente para insertar el elemento.
         pl = pri;
     }
@@ -204,6 +204,24 @@ void mostrarLista(const tLista* pl, Imp imp) {
     }
 }
 
+void mostrarListaInvIte(const tLista* pl, Imp imp) {
+
+    while (*pl) {
+        // apilar tNodo*
+    }
+
+
+
+
+}
+
+void mostrarListaInvRec(const tLista* pl, Imp imp) {
+    if (*pl) {
+        mostrarListaInvRec(&(*pl) -> sig, imp);
+        imp((*pl) -> info);
+    }
+}
+
 bool listaVacia(const tLista* pl) {
     return *pl == NULL;
 }
@@ -253,7 +271,7 @@ void ordenamientoSeleccion(tLista* pl, Cmp cmp) {
         while (*q) {
             if (cmp((*q) -> info, (*min) -> info) < 0)
                 min = q;
-            
+
             q = &((*q) -> sig);
         }
 

@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1760526398 source:c:\users\estudiante\desktop\facultad\practica-materias\aed\recursividad\main.c
+	<stdio.h>
+	<stdlib.h>
+	"../TDALista/TDALista.h"
+
+1760526416 c:\users\estudiante\desktop\facultad\practica-materias\aed\tdalista\tdalista.h
+	<stddef.h>
+
