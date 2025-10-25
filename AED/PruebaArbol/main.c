@@ -9,7 +9,7 @@ int main() {
 
     tArbol arbol;
     //int dato;
-    int nums[] = {5, 3, 8, 1};
+    int nums[] = {10, 5, 3, 15, 1, 2, 32, 11};
     int cod = TODO_OK;
     int* i;
 
@@ -30,7 +30,12 @@ int main() {
         i++;
     }
 
-    recorrerArbol(&arbol, POSORDEN, mostrarInt);
+    vaciarArbol(&arbol);
+
+    //recorrerHastaNivel(&arbol, 3, mostrarInt);
+    printf("%d\n", alturaArbol(&arbol));
+
+    recorrerArbol(&arbol, INORDEN, mostrarInt);
     printf("\n");
 
     return 0;

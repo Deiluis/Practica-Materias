@@ -1,6 +1,8 @@
 #ifndef ARBOL_H_INCLUDED
 #define ARBOL_H_INCLUDED
 
+#define MIN(a,b) ((a)<(b)?(a):(b))
+
 #define TODO_OK 0
 #define ERR_MEMORIA 1
 #define DUPLICADO 2
@@ -31,5 +33,10 @@ int ponerEnArbolR(tArbol* pa, const void* info, unsigned tamInfo, Cmp cmp);
 int ponerEnArbolI(tArbol* pa, const void* info, unsigned tamInfo, Cmp cmp);
 void recorrerArbol(const tArbol* pa, int notacion, Acc acc);
 void buscarEnArbol(const tArbol* pa, void* info, unsigned tamInfo);
+int alturaArbol(const tArbol* pa);
+void recorrerHastaNivel(const tArbol* pa, int nivel, Acc acc);
+void procesarNivel(const tArbol* pa, int nivel, Acc acc);
+void vaciarArbol(tArbol* pa);
+bool eliminarNodo(tArbol* pa, void* info, unsigned tamInfo, Cmp cmp);
 
 #endif // ARBOL_H_INCLUDED
