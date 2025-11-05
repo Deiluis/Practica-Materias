@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1761832015 source:d:\facultad\practica-materias\aed\repaso\listadoble\listadoble.c
+	"./ListaDoble.h"
+	<stdlib.h>
+	<string.h>
+
+1761832018 d:\facultad\practica-materias\aed\repaso\listadoble\listadoble.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+
+1761517634 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+
+1761831142 d:\facultad\practica-materias\aed\repaso\comun\comunlistaenlazada.h
+	<stddef.h>
+

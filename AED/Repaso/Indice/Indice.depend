@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1762308156 source:d:\facultad\practica-materias\aed\repaso\indice\indice.c
+	"Indice.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1762308305 d:\facultad\practica-materias\aed\repaso\indice\indice.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+	<stddef.h>
+
+1762306679 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+
+1762301692 d:\facultad\practica-materias\aed\repaso\comun\comunlistaenlazada.h
+	<stddef.h>
+

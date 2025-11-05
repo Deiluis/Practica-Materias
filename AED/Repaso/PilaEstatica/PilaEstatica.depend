@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1760637821 source:d:\facultad\practica-materias\aed\repaso\pilaestatica\pilaestatica.c
+	"./PilaEstatica.h"
+	"string.h"
+
+1760635757 d:\facultad\practica-materias\aed\repaso\pilaestatica\pilaestatica.h
+	"../comun/comun.h"
+
+1760635703 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+

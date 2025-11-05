@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1760628198 source:d:\facultad\practica-materias\aed\repaso\string\string.c
+	"./string.h"
+	"../comun/comun.h"
+
+1760627253 d:\facultad\practica-materias\aed\repaso\string\string.h
+	<stddef.h>
+
+1760627962 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+

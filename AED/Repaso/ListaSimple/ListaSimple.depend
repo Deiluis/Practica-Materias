@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1760748350 source:d:\facultad\practica-materias\aed\repaso\listasimple\listasimple.c
+	"./ListaSimple.h"
+	<string.h>
+	<stdlib.h>
+
+1760748364 d:\facultad\practica-materias\aed\repaso\listasimple\listasimple.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+
+1760738202 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+
+1760650763 d:\facultad\practica-materias\aed\repaso\comun\comunlistaenlazada.h
+

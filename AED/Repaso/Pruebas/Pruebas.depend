@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1762320899 source:d:\facultad\practica-materias\aed\repaso\pruebas\main.c
+	<stdio.h>
+	<stdlib.h>
+	"../PilaDinamica/PilaDinamica.h"
+	"../ColaEstatica/ColaEstatica.h"
+	"../ListaSimple/ListaSimple.h"
+	"../ListaDoble/ListaDoble.h"
+	"../Arbol/Arbol.h"
+	"../Indice/Indice.h"
+	<string.h>
+
+1760630359 d:\facultad\practica-materias\aed\repaso\string\string.h
+	<stddef.h>
+	<stdio.h>
+
+1760637983 d:\facultad\practica-materias\aed\repaso\pilaestatica\pilaestatica.h
+	"../comun/comun.h"
+
+1762306679 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+
+1760643310 d:\facultad\practica-materias\aed\repaso\colaestatica\colaestatica.h
+	"../comun/comun.h"
+
+1760650730 d:\facultad\practica-materias\aed\repaso\piladinamica\piladinamica.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+
+1762301692 d:\facultad\practica-materias\aed\repaso\comun\comunlistaenlazada.h
+	<stddef.h>
+
+1760650923 d:\facultad\practica-materias\aed\repaso\coladinamica\coladinamica.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+
+1762309346 d:\facultad\practica-materias\aed\repaso\listasimple\listasimple.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+
+1762297642 d:\facultad\practica-materias\aed\repaso\arbol\arbol.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+	<stddef.h>
+
+1761855788 d:\facultad\practica-materias\aed\repaso\listadoble\listadoble.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+
+1762308305 d:\facultad\practica-materias\aed\repaso\indice\indice.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+	<stddef.h>
+

@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1760652422 source:d:\facultad\practica-materias\aed\repaso\coladinamica\coladinamica.c
+	"./ColaDinamica.h"
+	<string.h>
+	<stdlib.h>
+
+1760650923 d:\facultad\practica-materias\aed\repaso\coladinamica\coladinamica.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+
+1760635703 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+
+1760650763 d:\facultad\practica-materias\aed\repaso\comun\comunlistaenlazada.h
+

@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1761746389 source:d:\facultad\practica-materias\aed\arboleseindices\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../Repaso/Arbol/Arbol.h"
+
+1761520307 d:\facultad\practica-materias\aed\repaso\arbol\arbol.h
+	"../comun/comun.h"
+	"../comun/comunListaEnlazada.h"
+	<stddef.h>
+
+1761517634 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+
+1761424037 d:\facultad\practica-materias\aed\repaso\comun\comunlistaenlazada.h
+

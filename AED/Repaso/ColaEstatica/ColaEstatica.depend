@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1760646328 source:d:\facultad\practica-materias\aed\repaso\colaestatica\colaestatica.c
+	"./ColaEstatica.h"
+	"string.h"
+
+1760643310 d:\facultad\practica-materias\aed\repaso\colaestatica\colaestatica.h
+	"../comun/comun.h"
+
+1760635703 d:\facultad\practica-materias\aed\repaso\comun\comun.h
+
