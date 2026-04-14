@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1775000272 source:d:\facultad\practica-materias\pp\prueba\main.c
+	<stdio.h>
+	<stdlib.h>
+
