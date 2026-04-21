@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="contador_ganado/src"/>
+	<classpathentry kind="src" path="contador_ganado/test"/>
+	<classpathentry kind="src" path="proyecto/src"/>
+	<classpathentry kind="src" path="tambo/src"/>
+	<classpathentry kind="src" path="tambo/test"/>
+	<classpathentry kind="output" path="contador_ganado/bin"/>
+</classpath>
