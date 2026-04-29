@@ -107,13 +107,22 @@ public class Rango implements Comparable<Rango>{
 		return new Rango(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, false, false);
 	}
 	
-//	public Rango sumarCon(Rango r) {
-//	// Pendiente
-//}
+	public Rango sumarCon(Rango r) {
+		Rango rangoMin = 
+			Double.compare(this.limI, r.limI) < 0 ? this : r;
+		Rango rangoMax = 
+				Double.compare(this.limI, r.limI) > 0 ? this : r;
+		
+		return new Rango(
+			rangoMin.limI, 
+			rangoMax.limS, 
+			rangoMin.incluyeLimI,
+			rangoMax.incluyeLimS
+		);
+	}
 	
-//	public Rango intersectarCon(Rango r) {
-//		// Pendiente
-//	}
+	
+	// Intersectar pendiente
 	
 	// Esto debería generar un rango nuevo?
 	public Rango desplazar(double despl) {
